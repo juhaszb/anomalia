@@ -5,6 +5,7 @@
     "align": {
       "options": ["parameters", "statements"]
     },
+    "only-arrow-functions": false,
     "array-type": false,
     "arrow-return-shorthand": true,
     "curly": true,
