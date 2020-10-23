@@ -6,6 +6,7 @@
       "options": ["parameters", "statements"]
     },
     "only-arrow-functions": false,
+    "no-trailing-whitespace": false,
     "array-type": false,
     "arrow-return-shorthand": true,
     "curly": true,

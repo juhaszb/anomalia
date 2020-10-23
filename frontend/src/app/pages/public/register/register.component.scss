@@ -1,0 +1,33 @@
+@import '../../../../variables.scss';
+.register {
+  display: flex;
+  height: 100%;
+  > * {
+    flex: 1;
+  }
+  > div:first-child {
+    background-color: $primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      max-width: 200px;
+      max-height: 200px;
+    }
+  }
+  > div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    mat-card {
+      max-width: 300px;
+      mat-form-field {
+        width: 100%;
+      }
+      mat-card-actions {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}

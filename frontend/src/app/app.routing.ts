@@ -1,7 +1,18 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'public',
+    data: {
+      title: 'Publikus oldal',
+    },
+    loadChildren: () =>
+      import('./pages/public/public.module').then((e) => e.PublicModule),
+  },
+  // { path: 'auth', canActivate: undefined, canActivateChild: undefined },
+  { path: '', redirectTo: 'public', pathMatch: 'full' },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

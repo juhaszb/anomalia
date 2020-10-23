@@ -10,7 +10,7 @@ type RegisterFormControls = Record<keyof RegisterForm, FormControl>;
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponentComponent
+export class RegisterComponent
   extends UnsubscribeOnDestroyBaseComponent
   implements OnInit {
   formControls: RegisterFormControls = {
