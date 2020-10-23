@@ -1,9 +1,11 @@
 import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import localeHu from '@angular/common/locales/hu';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
 import {
   NavigationActionTiming,
   routerReducer,
@@ -34,6 +36,7 @@ registerLocaleData(localeHu);
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     StoreModule.forRoot(
       {
         router: routerReducer,
@@ -50,6 +53,7 @@ registerLocaleData(localeHu);
     StoreRouterConnectingModule.forRoot({
       navigationActionTiming: NavigationActionTiming.PostActivation,
     }),
+    EffectsModule.forRoot([]),
     // Instrumentation must be imported after importing StoreModule (config is optional)
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     BrowserAnimationsModule,
