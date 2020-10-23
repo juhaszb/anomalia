@@ -13,16 +13,6 @@ export const LOGINFORM_FEATURE_KEY = 'LoginForm';
 export interface LoginFormState {
   form: LoginForm;
   isRequeting: boolean;
-  credentials?: {
-    acceptToken: string;
-    refreshToken: string;
-    decodedToken: {
-      iat: string;
-      exp: string;
-      username: string;
-      userType: string;
-    };
-  };
 }
 
 export interface LoginFormPartialState {

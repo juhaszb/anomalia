@@ -20,7 +20,11 @@ import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { CoreEffects } from './core/core.state/core.effects';
-import { CoreReducer } from './core/core.state/core.reducer';
+import {
+  CORE_FEATURE_KEY,
+  CoreInitialState,
+  CoreReducer,
+} from './core/core.state/core.reducer';
 
 // tslint:disable-next-line: no-any
 export function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -44,7 +48,6 @@ registerLocaleData(localeHu);
     StoreModule.forRoot(
       {
         router: routerReducer,
-        core: CoreReducer,
       },
       {
         metaReducers,
@@ -59,6 +62,9 @@ registerLocaleData(localeHu);
       navigationActionTiming: NavigationActionTiming.PostActivation,
     }),
     EffectsModule.forRoot([CoreEffects]),
+    StoreModule.forFeature(CORE_FEATURE_KEY, CoreReducer, {
+      initialState: CoreInitialState,
+    }),
     // Instrumentation must be imported after importing StoreModule (config is optional)
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     BrowserAnimationsModule,

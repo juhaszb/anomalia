@@ -12,7 +12,7 @@ import {
 } from './login/+state/login.reducer';
 import { LoginComponent } from './login/login.component';
 import { PublicRoutingModule } from './public.routing';
-import { PublicServiceService } from './public.service';
+import { PublicServiceService as PublicService } from './public.service';
 import { RegisterFormEffects } from './register/+state/register.effects';
 import {
   REGISTERFORM_FEATURE_KEY,
@@ -36,6 +36,6 @@ import { RegisterComponent } from './register/register.component';
       initialState: loginFormInitialState,
     }),
   ],
-  providers: [PublicServiceService],
+  providers: [PublicService],
 })
 export class PublicModule {}

@@ -7,6 +7,7 @@ import {
   delay,
   map,
   mergeMap,
+  tap,
   withLatestFrom,
 } from 'rxjs/operators';
 
@@ -31,10 +32,10 @@ export class LoginFormEffects {
       )
     )
   );
-  // @Effect() LoggedIn$ = this.actions$.pipe(
-  //   ofType(LoginFormActionTypes.LoginFormResponse),
-  //   map(() => this.router.navigateByUrl('public/register'))
-  // );
+  @Effect({ dispatch: false }) LoggedIn$ = this.actions$.pipe(
+    ofType(LoginFormActionTypes.LoginFormResponse),
+    tap(() => this.router.navigateByUrl('auth/user'))
+  );
 
   constructor(
     private service: PublicServiceService,

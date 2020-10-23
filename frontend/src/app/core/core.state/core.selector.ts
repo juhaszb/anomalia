@@ -9,10 +9,16 @@ const getCredentials = createSelector(
 );
 const getAcceptToken = createSelector(
   getCoreState,
-  (state: CoreState) => state.credentials?.acceptToken
+  (state: CoreState) => state?.credentials?.acceptToken
 );
+
+const getCurrentUserType = createSelector(getCoreState, (state: CoreState) => {
+  console.log(state);
+  return state?.credentials?.decodedToken.userType;
+});
 
 export const CoreQuery = {
   getCredentials,
   getAcceptToken,
+  getCurrentUserType,
 };

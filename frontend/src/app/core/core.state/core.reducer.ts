@@ -6,16 +6,21 @@ import {
 
 export const CORE_FEATURE_KEY = 'Core';
 
+export enum UserType {
+  Admin = 'Admin',
+  User = 'User',
+}
+export interface DecodedToken {
+  iat: string;
+  exp: string;
+  username: string;
+  userType: UserType;
+}
 export interface CoreState {
   credentials?: {
     acceptToken: string;
     refreshToken: string;
-    decodedToken: {
-      iat: string;
-      exp: string;
-      username: string;
-      userType: string;
-    };
+    decodedToken: DecodedToken;
   };
 }
 
@@ -31,12 +36,7 @@ export function CoreReducer(
 ): CoreState {
   switch (action.type) {
     case LoginFormActionTypes.LoginFormResponse: {
-      const decodedToken: {
-        iat: string;
-        exp: string;
-        username: string;
-        userType: string;
-      } = jwt_decode(action.payload.acceptToken);
+      const decodedToken: DecodedToken = jwt_decode(action.payload.acceptToken);
       state = {
         ...state,
         credentials: {
