@@ -1,66 +1,36 @@
-import { LoginFormAction, LoginFormActionTypes } from './animation-list.acions';
+import { AnimationListAction } from './animation-list.acions';
 
-export interface LoginForm {
-  username: string;
-  password: string;
-}
-export interface LoginResponse {
-  acceptToken: string;
-  refreshToken: string;
-}
-export const LOGINFORM_FEATURE_KEY = 'LoginForm';
-
-export interface LoginFormState {
-  form: LoginForm;
-  isRequeting: boolean;
-  credentials?: {
-    acceptToken: string;
-    refreshToken: string;
-    decodedToken: {
-      iat: string;
-      exp: string;
-      username: string;
-      userType: string;
-    };
-  };
+export interface Animation {
+  id: string;
+  url: string;
+  bought: boolean;
 }
 
-export interface LoginFormPartialState {
-  readonly [LOGINFORM_FEATURE_KEY]: LoginFormState;
+export const ANIMATIONLIST_FEATURE_KEY = 'AnimationList';
+
+export interface AnimationListState {
+  animationList: Animation[];
+  isRequesting: boolean;
+  isDeleteRequesting: boolean;
+  deleteId: string;
 }
 
-export const loginFormInitialState: LoginFormState = {
-  form: { password: '', username: '' },
-  isRequeting: false,
+export interface AnimationListPartialState {
+  readonly [ANIMATIONLIST_FEATURE_KEY]: AnimationListState;
+}
+
+export const AnimationListInitialState: AnimationListState = {
+  isRequesting: false,
+  isDeleteRequesting: false,
+  deleteId: '',
+  animationList: [],
 };
 
-export function LoginFormReducer(
-  state: LoginFormState = loginFormInitialState,
-  action: LoginFormAction
-): LoginFormState {
+export function AnimationListReducer(
+  state: AnimationListState = AnimationListInitialState,
+  action: AnimationListAction
+): AnimationListState {
   switch (action.type) {
-    case LoginFormActionTypes.ChangeLoginForm: {
-      state = {
-        ...state,
-        form: action.payload,
-      };
-      break;
-    }
-    case LoginFormActionTypes.LoginFormRequest: {
-      state = {
-        ...state,
-        isRequeting: true,
-      };
-      break;
-    }
-    case LoginFormActionTypes.LoginFormResponse:
-    case LoginFormActionTypes.LoginFormError: {
-      state = {
-        ...state,
-        isRequeting: false,
-      };
-      break;
-    }
   }
   return state;
 }

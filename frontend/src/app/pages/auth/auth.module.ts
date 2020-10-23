@@ -4,6 +4,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SharedUiModule } from 'src/app/shared-ui.module';
 
+import { AnimationListComponent } from './animation-list/animation-list.component';
 import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth.routing';
 import { AuthService } from './auth.service';
@@ -16,7 +17,7 @@ import {
 import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
-  declarations: [UserListComponent, AuthComponent],
+  declarations: [UserListComponent, AuthComponent, AnimationListComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

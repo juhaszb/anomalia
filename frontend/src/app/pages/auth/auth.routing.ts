@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AnimationListComponent } from './animation-list/animation-list.component';
 import { AuthComponent } from './auth.component';
 import { UserListComponent } from './user-list/user-list.component';
 
@@ -12,13 +13,13 @@ const routes: Routes = [
     },
     component: AuthComponent,
     children: [
-      // {
-      //     path: 'list',
-      //     data: {
-      //       title: 'Animáció lista',
-      //     },
-      //     component: ,
-      //   },
+      {
+        path: 'list',
+        data: {
+          title: 'Animáció lista',
+        },
+        component: AnimationListComponent,
+      },
       {
         path: 'user',
         data: {

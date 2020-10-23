@@ -1,38 +1,28 @@
 import { Action } from '@ngrx/store';
 
-import { LoginForm, LoginResponse } from './animation-list.reducer';
-
-export enum LoginFormActionTypes {
-  ChangeLoginForm = '[LoginForm] Change LoginForm',
-  LoginFormRequest = '[LoginForm] LoginForm Request',
-  LoginFormResponse = '[LoginForm] LoginForm Response',
-  LoginFormError = '[LoginForm] LoginForm Error',
+export enum AnimationListActionTypes {
+  AnimationListRequest = '[AnimationList] AnimationList Request',
+  AnimationListResponse = '[AnimationList] AnimationList Response',
+  AnimationListError = '[AnimationList] AnimationList Error',
 }
 
-export class ChangeLoginForm implements Action {
-  readonly type = LoginFormActionTypes.ChangeLoginForm;
-  constructor(public payload: LoginForm) {}
+export class AnimationListRequest implements Action {
+  readonly type = AnimationListActionTypes.AnimationListRequest;
 }
-export class LoginFormRequest implements Action {
-  readonly type = LoginFormActionTypes.LoginFormRequest;
+export class AnimationListResponse implements Action {
+  readonly type = AnimationListActionTypes.AnimationListResponse;
 }
-export class LoginFormResponse implements Action {
-  readonly type = LoginFormActionTypes.LoginFormResponse;
-  constructor(public payload: LoginResponse) {}
-}
-export class LoginFormError implements Action {
-  readonly type = LoginFormActionTypes.LoginFormError;
+export class AnimationListError implements Action {
+  readonly type = AnimationListActionTypes.AnimationListError;
 }
 
-export type LoginFormAction =
-  | ChangeLoginForm
-  | LoginFormRequest
-  | LoginFormResponse
-  | LoginFormError;
+export type AnimationListAction =
+  | AnimationListRequest
+  | AnimationListResponse
+  | AnimationListError;
 
-export const fromLoginFormActions = {
-  ChangeLoginForm,
-  LoginFormRequest,
-  LoginFormResponse,
-  LoginFormError,
+export const fromAnimationListActions = {
+  AnimationListRequest,
+  AnimationListResponse,
+  AnimationListError,
 };

@@ -10,34 +10,33 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { PublicServiceService } from '../../public.service';
+import { AuthService } from '../../auth.service';
 import {
-  LoginFormActionTypes,
-  LoginFormError,
-  LoginFormResponse,
+  AnimationListActionTypes,
+  AnimationListError,
+  AnimationListResponse,
 } from './animation-list.acions';
-import { LoginFormQuery } from './animation-list.selector';
 
 @Injectable()
-export class LoginFormEffects {
+export class AnimationListEffects {
   @Effect() Login$ = this.actions$.pipe(
-    ofType(LoginFormActionTypes.LoginFormRequest),
+    ofType(AnimationListActionTypes.AnimationListRequest),
     withLatestFrom(this.store),
     mergeMap(([action, storeState]) =>
-      this.service.login(LoginFormQuery.getLoginForm(storeState)).pipe(
+      this.service.getAnimationList().pipe(
         delay(100),
-        map((x) => new LoginFormResponse(x)),
-        catchError(async () => new LoginFormError())
+        map((x) => new AnimationListResponse(x)),
+        catchError(async () => new AnimationListError())
       )
     )
   );
   // @Effect() LoggedIn$ = this.actions$.pipe(
-  //   ofType(LoginFormActionTypes.LoginFormResponse),
+  //   ofType(AnimationListActionTypes.AnimationListResponse),
   //   map(() => this.router.navigateByUrl('public/register'))
   // );
 
   constructor(
-    private service: PublicServiceService,
+    private service: AuthService,
     private router: Router,
     private store: Store<{}>,
     private actions$: Actions

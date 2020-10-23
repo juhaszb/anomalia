@@ -1,23 +1,34 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import {
-  LOGINFORM_FEATURE_KEY,
-  LoginFormState,
+  ANIMATIONLIST_FEATURE_KEY,
+  AnimationListState,
 } from './animation-list.reducer';
 
-const getLoginFormState = createFeatureSelector<LoginFormState>(
-  LOGINFORM_FEATURE_KEY
+const getAnimationListState = createFeatureSelector<AnimationListState>(
+  ANIMATIONLIST_FEATURE_KEY
 );
-const getLoginForm = createSelector(
-  getLoginFormState,
-  (state: LoginFormState) => state.form
+const getAnimationList = createSelector(
+  getAnimationListState,
+  (state: AnimationListState) => state.animationList
 );
-const getLoginFormRequesting = createSelector(
-  getLoginFormState,
-  (state: LoginFormState) => state.isRequeting
+const getAnimationListRequesting = createSelector(
+  getAnimationListState,
+  (state: AnimationListState) => state.isRequesting
 );
 
-export const LoginFormQuery = {
-  getLoginForm,
-  getLoginFormRequesting,
+const getAnimationDeleteRequesting = createSelector(
+  getAnimationListState,
+  (state: AnimationListState) => state.isDeleteRequesting
+);
+const getDeleteId = createSelector(
+  getAnimationListState,
+  (state: AnimationListState) => state.deleteId
+);
+
+export const AnimationListQuery = {
+  getAnimationList,
+  getAnimationListRequesting,
+  getAnimationDeleteRequesting,
+  getDeleteId,
 };

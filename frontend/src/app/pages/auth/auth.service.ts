@@ -19,4 +19,26 @@ export class AuthService {
     //   return this.httpClient.delete('/user/'+id);
     return new BehaviorSubject({}).asObservable();
   }
+
+  getAnimationList() {
+    //   return this.httpClient.get('/user');
+    return new BehaviorSubject([
+      { id: '1', username: 'Kiskecske' },
+      { id: '2', username: 'Kisgága' },
+      { id: '3', username: 'Kiskutya' },
+    ]).asObservable();
+  }
+
+  deleteAnimation(id: string) {
+    //   return this.httpClient.delete('/user/'+id);
+    return new BehaviorSubject({}).asObservable();
+  }
+  buyAnimation(id: string) {
+    //   return this.httpClient.delete('/user/'+id);
+    return new BehaviorSubject({}).asObservable();
+  }
+  downloadAnimation(id: string) {
+    //   return this.httpClient.get('/user/'+id);
+    return new BehaviorSubject({}).asObservable();
+  }
 }
