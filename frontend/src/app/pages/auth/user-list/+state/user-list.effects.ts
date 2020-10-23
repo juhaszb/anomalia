@@ -9,6 +9,7 @@ import {
   UserListDeleteRequest,
   UserListDeleteResponse,
   UserListError,
+  UserListRequest,
   UserListResponse,
 } from './user-list.acions';
 
@@ -34,6 +35,9 @@ export class UserListEffects {
       )
     )
   );
-
+  @Effect() getUsersAfterDelete$ = this.actions$.pipe(
+    ofType(UserListActionTypes.UserListDeleteResponse),
+    map(() => new UserListRequest())
+  );
   constructor(private service: AuthService, private actions$: Actions) {}
 }
