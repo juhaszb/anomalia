@@ -5,11 +5,7 @@ import { Store } from '@ngrx/store';
 import { catchError, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { PublicServiceService } from '../../public.service';
-import {
-  LoginFormActionTypes,
-  LoginFormError,
-  LoginFormResponse,
-} from './login.acions';
+import { LoginFormActionTypes, LoginFormError, LoginFormResponse } from './login.acions';
 import { LoginFormQuery } from './login.selector';
 
 @Injectable()
@@ -24,7 +20,7 @@ export class LoginFormEffects {
       )
     )
   );
-  @Effect() Logined$ = this.actions$.pipe(
+  @Effect() LoggedIn$ = this.actions$.pipe(
     ofType(LoginFormActionTypes.LoginFormResponse),
     tap(() => this.router.navigateByUrl('public/login'))
   );
