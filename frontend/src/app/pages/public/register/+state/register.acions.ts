@@ -21,7 +21,6 @@ export class RegisterFormResponse implements Action {
 }
 export class RegisterFormError implements Action {
   readonly type = RegisterFormActionTypes.RegisterFormError;
-  // tslint:disable-next-line: no-any
 }
 
 export type RegisterFormAction =
