@@ -7,7 +7,11 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
-import { NavigationActionTiming, routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import {
+  NavigationActionTiming,
+  routerReducer,
+  StoreRouterConnectingModule,
+} from '@ngrx/router-store';
 import { Action, ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { filter, map } from 'rxjs/operators';
@@ -15,6 +19,8 @@ import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
+import { CoreEffects } from './core/core.state/core.effects';
+import { CoreReducer } from './core/core.state/core.reducer';
 
 // tslint:disable-next-line: no-any
 export function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
@@ -38,6 +44,7 @@ registerLocaleData(localeHu);
     StoreModule.forRoot(
       {
         router: routerReducer,
+        core: CoreReducer,
       },
       {
         metaReducers,
@@ -51,7 +58,7 @@ registerLocaleData(localeHu);
     StoreRouterConnectingModule.forRoot({
       navigationActionTiming: NavigationActionTiming.PostActivation,
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([CoreEffects]),
     // Instrumentation must be imported after importing StoreModule (config is optional)
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     BrowserAnimationsModule,

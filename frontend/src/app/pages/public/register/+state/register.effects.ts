@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
+import {
+  catchError,
+  delay,
+  map,
+  mergeMap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
 import { PublicServiceService } from '../../public.service';
 import {
@@ -19,6 +25,7 @@ export class RegisterFormEffects {
     withLatestFrom(this.store),
     mergeMap(([action, storeState]) =>
       this.service.register(registerFormQuery.getRegisterForm(storeState)).pipe(
+        delay(100),
         map(() => new RegisterFormResponse()),
         catchError(async () => new RegisterFormError())
       )
@@ -26,7 +33,7 @@ export class RegisterFormEffects {
   );
   @Effect() registered$ = this.actions$.pipe(
     ofType(RegisterFormActionTypes.RegisterFormResponse),
-    tap(() => this.router.navigateByUrl('public/login'))
+    map(() => this.router.navigateByUrl('public/login'))
   );
 
   constructor(

@@ -1,4 +1,8 @@
-import { CoreAction } from './core.acions';
+import jwt_decode from 'jwt-decode';
+import {
+  LoginFormAction,
+  LoginFormActionTypes,
+} from 'src/app/pages/public/login/+state/login.acions';
 
 export const CORE_FEATURE_KEY = 'Core';
 
@@ -23,10 +27,25 @@ export const CoreInitialState: CoreState = {};
 
 export function CoreReducer(
   state: CoreState = CoreInitialState,
-  action: CoreAction
+  action: LoginFormAction
 ): CoreState {
-  // switch (action.type) {
-
-  // }
+  switch (action.type) {
+    case LoginFormActionTypes.LoginFormResponse: {
+      const decodedToken: {
+        iat: string;
+        exp: string;
+        username: string;
+        userType: string;
+      } = jwt_decode(action.payload.acceptToken);
+      state = {
+        ...state,
+        credentials: {
+          ...action.payload,
+          decodedToken,
+        },
+      };
+      break;
+    }
+  }
   return state;
 }

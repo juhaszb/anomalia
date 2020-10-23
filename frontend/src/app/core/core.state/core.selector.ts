@@ -7,7 +7,12 @@ const getCredentials = createSelector(
   getCoreState,
   (state: CoreState) => state.credentials
 );
+const getAcceptToken = createSelector(
+  getCoreState,
+  (state: CoreState) => state.credentials?.acceptToken
+);
 
 export const CoreQuery = {
   getCredentials,
+  getAcceptToken,
 };

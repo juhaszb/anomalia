@@ -1,5 +1,3 @@
-import jwt_decode from 'jwt-decode';
-
 import { LoginFormAction, LoginFormActionTypes } from './login.acions';
 
 export interface LoginForm {
@@ -55,29 +53,11 @@ export function LoginFormReducer(
       };
       break;
     }
+    case LoginFormActionTypes.LoginFormResponse:
     case LoginFormActionTypes.LoginFormError: {
       state = {
         ...state,
         isRequeting: false,
-      };
-      break;
-    }
-    case LoginFormActionTypes.LoginFormResponse: {
-      const decodedToken: {
-        iat: string;
-        exp: string;
-        username: string;
-        userType: string;
-      } = jwt_decode(action.payload.acceptToken);
-      localStorage.setItem('acceptToken', action.payload.acceptToken);
-      localStorage.setItem('refreshToken', action.payload.refreshToken);
-      state = {
-        ...state,
-        isRequeting: false,
-        credentials: {
-          ...action.payload,
-          decodedToken,
-        },
       };
       break;
     }
