@@ -20,8 +20,11 @@
     "lib": ["es2018", "dom"]
   },
   "angularCompilerOptions": {
+    "annotateForClosureCompiler": true,
+    "skipTemplateCodegen": true,
+    "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "enableResourceInlining": true,
+    "strictPropertyInitialization": false
   }
 }

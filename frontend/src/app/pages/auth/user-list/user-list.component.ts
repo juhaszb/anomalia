@@ -15,13 +15,15 @@ import { UserListQuery } from './+state/user-list.selector';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
-  isRequesting$: Observable<boolean> | undefined;
-  isDeleteRequesting$: Observable<boolean> | undefined;
-  userList$: Observable<User[]> | undefined;
-  deleteId$: Observable<string> | undefined;
+  isRequesting$: Observable<boolean>;
+  isDeleteRequesting$: Observable<boolean>;
+  userList$: Observable<User[]>;
+  deleteId$: Observable<string>;
+
   constructor(private store: Store) {}
 
   displayedColumns = ['username', 'operations'];
+
   ngOnInit(): void {
     this.store.dispatch(new UserListRequest());
     this.isRequesting$ = this.store.pipe(

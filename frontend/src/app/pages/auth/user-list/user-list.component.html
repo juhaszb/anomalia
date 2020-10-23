@@ -1,8 +1,4 @@
-<table
-  mat-table
-  [dataSource]="(userList$ | async) ? (userList$ | async) : []"
-  class="mat-elevation-z8"
->
+<table mat-table [dataSource]="userList$ | async" class="mat-elevation-z8">
   <ng-container matColumnDef="username">
     <th mat-header-cell *matHeaderCellDef>Felhasználónév</th>
     <td mat-cell *matCellDef="let element">{{ element.username }}</td>
