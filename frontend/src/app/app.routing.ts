@@ -10,7 +10,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/public/public.module').then((e) => e.PublicModule),
   },
-  // { path: 'auth', canActivate: undefined, canActivateChild: undefined },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./pages/auth/auth.module').then((e) => e.AuthModule),
+  },
   { path: '', redirectTo: 'public', pathMatch: 'full' },
 ];
 
