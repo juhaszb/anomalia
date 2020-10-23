@@ -1,0 +1,13 @@
+<div class="auth-container">
+  <div>
+    <ng-container *ngIf="(userType$ | async) === 'Admin'">
+      <button type="button" [routerLink]="'/auth/user'" mat-raised-button>
+        Felhasználó
+      </button>
+      <button type="button" [routerLink]="'/auth/animation'" mat-raised-button>
+        Animáció
+      </button>
+    </ng-container>
+  </div>
+  <router-outlet></router-outlet>
+</div>
