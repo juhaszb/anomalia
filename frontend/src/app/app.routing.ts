@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { UnauthGuard } from './core/guards/auth.guard';
+
 const routes: Routes = [
   {
     path: 'public',
@@ -12,6 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'auth',
+    canActivate: [UnauthGuard],
+    canActivateChild: [UnauthGuard],
     loadChildren: () =>
       import('./pages/auth/auth.module').then((e) => e.AuthModule),
   },

@@ -16,9 +16,14 @@ const getCurrentUserType = createSelector(getCoreState, (state: CoreState) => {
   console.log(state);
   return state?.credentials?.decodedToken.userType;
 });
+const isLoggedIn = createSelector(getCoreState, (state: CoreState) => {
+  console.log(state);
+  return !!state?.credentials?.acceptToken;
+});
 
 export const CoreQuery = {
   getCredentials,
   getAcceptToken,
   getCurrentUserType,
+  isLoggedIn,
 };
