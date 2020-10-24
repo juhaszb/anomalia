@@ -4,6 +4,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SharedUiModule } from 'src/app/shared-ui.module';
 
+import { AnimationListEffects } from './animation-list/+state/animation-list.effects';
+import {
+  ANIMATIONLIST_FEATURE_KEY,
+  AnimationListInitialState,
+  AnimationListReducer,
+} from './animation-list/+state/animation-list.reducer';
 import { AnimationListComponent } from './animation-list/animation-list.component';
 import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth.routing';
@@ -25,6 +31,10 @@ import { UserListComponent } from './user-list/user-list.component';
     EffectsModule.forFeature([UserListEffects]),
     StoreModule.forFeature(USERLIST_FEATURE_KEY, UserListReducer, {
       initialState: UserListInitialState,
+    }),
+    EffectsModule.forFeature([AnimationListEffects]),
+    StoreModule.forFeature(ANIMATIONLIST_FEATURE_KEY, AnimationListReducer, {
+      initialState: AnimationListInitialState,
     }),
   ],
   providers: [AuthService],

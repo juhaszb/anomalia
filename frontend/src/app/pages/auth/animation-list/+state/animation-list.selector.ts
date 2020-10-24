@@ -17,18 +17,28 @@ const getAnimationListRequesting = createSelector(
   (state: AnimationListState) => state.isRequesting
 );
 
-const getAnimationDeleteRequesting = createSelector(
+const getDeletePostBuyRequesting = createSelector(
   getAnimationListState,
-  (state: AnimationListState) => state.isDeleteRequesting
+  (state: AnimationListState) => state.isDeletePostBuyRequesting
 );
-const getDeleteId = createSelector(
+const getDeleteOrBuyId = createSelector(
   getAnimationListState,
-  (state: AnimationListState) => state.deleteId
+  (state: AnimationListState) => state.deleteOrBuyId
+);
+const getCommentList = createSelector(
+  getAnimationListState,
+  (state: AnimationListState) => state.commentList
+);
+const getCommentRequesting = createSelector(
+  getAnimationListState,
+  (state: AnimationListState) => state.isCommentRequesting
 );
 
 export const AnimationListQuery = {
   getAnimationList,
   getAnimationListRequesting,
-  getAnimationDeleteRequesting,
-  getDeleteId,
+  getDeletePostBuyRequesting,
+  getDeleteOrBuyId,
+  getCommentList,
+  getCommentRequesting,
 };

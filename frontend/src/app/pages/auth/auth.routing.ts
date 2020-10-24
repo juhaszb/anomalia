@@ -14,7 +14,7 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       {
-        path: 'list',
+        path: 'animation',
         data: {
           title: 'Animáció lista',
         },
