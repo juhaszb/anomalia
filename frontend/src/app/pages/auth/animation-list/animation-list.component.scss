@@ -29,3 +29,11 @@ mat-spinner {
   margin: auto;
   margin-top: 100px;
 }
+.add {
+  display: flex;
+  justify-content: end;
+  button {
+    margin: 20px;
+    margin-left: auto;
+  }
+}

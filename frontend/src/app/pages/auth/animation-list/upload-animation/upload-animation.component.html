@@ -1,0 +1,17 @@
+<div>
+  <h1 mat-dialog-title>Animáció feltöltése</h1>
+  <mat-icon (click)="cancel()">cancel</mat-icon>
+</div>
+<div *ngIf="!!file" mat-mat-dialog-content>
+  <p>{{ file.name }}</p>
+</div>
+<div class="actions" mat-dialog-actions>
+  <a (click)="filePicker.click()">Fájl kiválasztása</a>
+  <input
+    type="file"
+    hidden
+    #filePicker
+    (change)="onChoose($event.target.files[0])"
+  />
+  <button mat-raised-button color="primary" (click)="onSave()">Rögzítés</button>
+</div>

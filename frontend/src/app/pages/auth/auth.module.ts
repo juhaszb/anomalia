@@ -11,6 +11,7 @@ import {
   AnimationListReducer,
 } from './animation-list/+state/animation-list.reducer';
 import { AnimationListComponent } from './animation-list/animation-list.component';
+import { UploadAnimationComponent } from './animation-list/upload-animation/upload-animation.component';
 import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth.routing';
 import { AuthService } from './auth.service';
@@ -23,7 +24,12 @@ import {
 import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
-  declarations: [UserListComponent, AuthComponent, AnimationListComponent],
+  declarations: [
+    UserListComponent,
+    AuthComponent,
+    AnimationListComponent,
+    UploadAnimationComponent,
+  ],
   imports: [
     CommonModule,
     AuthRoutingModule,

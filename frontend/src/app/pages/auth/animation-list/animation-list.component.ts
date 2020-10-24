@@ -10,6 +10,7 @@ import {
   AnimationListRequest,
 } from './+state/animation-list.actions';
 import { AnimationListQuery } from './+state/animation-list.selector';
+import { UploadAnimationComponent } from './upload-animation/upload-animation.component';
 
 @Component({
   selector: 'anomalia-animation-list',
@@ -54,6 +55,9 @@ export class AnimationListComponent implements OnInit {
     this.store.dispatch(new AnimationDownloadRequest(animationId));
   }
   openModal(animationId: string) {
-    //this.modal.open({})
+    // this.modal.open(UploadAnimationComponent,{data:animationId})
+  }
+  createNew() {
+    this.modal.open(UploadAnimationComponent);
   }
 }
