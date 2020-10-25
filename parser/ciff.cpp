@@ -1,8 +1,11 @@
 #include "ciff.h"
+
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <iterator>
+
+#include "exceptions.h"
 
 ciff::ciff(const std::string filename)
 {
@@ -20,7 +23,7 @@ ciff::ciff(const std::string filename)
 
 void ciff::parse_from_data(const std::vector<uint8_t>& data)
 {
-	unsigned char magic_string[5];
+	char magic_string[5];
 	magic_string[4] = '\0';
 	
 	size_t switch_var = 0;
@@ -33,7 +36,7 @@ void ciff::parse_from_data(const std::vector<uint8_t>& data)
 	size_t caption_length = 0;
 	size_t tag_length = 0;
 
-	for( auto s: data)
+	for(auto s: data)
 	{
 		switch(p)
 		{
@@ -45,12 +48,45 @@ void ciff::parse_from_data(const std::vector<uint8_t>& data)
 				{
 					p = header_s;
 					switch_var = 0;
+					if(std::string{magic_string} != CIFF_MAGIC)
+						throw magic_exception(magic_string);
 				}
+				break;
 			}
 			case header_s:
 			{
-				
+				this->header.header_size += s<<((8-switch_var));
+				switch_var++;
+				if(switch_var == 8)
+				{
+					p = content_s;
+					switch_var = 0;
+				}
+				break;
 			}
+			case content_s:
+			{
+				this->header.content_size += s<<((8-switch_var));
+				switch_var++;
+				if(switch_var == 8)
+				{
+					p = w;
+					switch_var = 0;
+				}
+				break;
+			}
+			case w:
+			{
+				this->header.width += s<<(8-switch_var);
+				switch_var++;
+				if(switch_var == 8)
+				{
+					p = h;
+					switch_var = 0;
+				}
+			}
+
+			
 		}
 	}
 	

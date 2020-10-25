@@ -1,6 +1,8 @@
 #ifndef __ciff_h_
 #define __ciff_h_
 
+#include <bits/stdint-uintn.h>
+#include <exception>
 #include <string>
 #include <vector>
 #include <array>
@@ -40,13 +42,18 @@ public:
 
 
 private:
-	unsigned long long int header_size; /*!Header size, 8 byte long field.*/
-	unsigned long long int content_size; /*! Content size, 8 byte long field.*/
-	unsigned long long int width; /*!Width of the image, 8 byte long, can be zero.  */
-	unsigned long long int height;/*! Height of the image, 8 byte long, can be zero. */
-	std::string caption; /*! Caption of the image, cannot contain \n */
-	std::vector<std::string> tags; /*! Image tags */
-	
+
+	struct ciff_header
+	{
+		uint64_t header_size; /*!Header size, 8 byte long field.*/
+		uint64_t content_size; /*! Content size, 8 byte long field.*/
+		uint64_t width; /*!Width of the image, 8 byte long, can be zero.  */
+		uint64_t height;/*! Height of the image, 8 byte long, can be zero. */
+		std::string caption; /*! Caption of the image, cannot contain \n */
+		std::vector<std::string> tags; /*! Image tags */	
+	};
+
+	ciff_header header;
 	std::unique_ptr<std::vector<uint8_t>> data; /*! Pixel data */
 
 	enum parse_state {magic, header_s, content_s, w, h, capt, tag, dat, done}; /*! Enum for parsing, internal use only */
@@ -56,6 +63,7 @@ private:
 	void parse_from_data(const std::vector<uint8_t>& data);	
 
 };
+
 
 
 
