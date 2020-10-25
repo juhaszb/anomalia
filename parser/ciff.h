@@ -35,17 +35,20 @@ class ciff {
 
     private:
 	struct ciff_header {
-		uint64_t header_size; /*!Header size, 8 byte long field.*/
-		uint64_t content_size; /*! Content size, 8 byte long field.*/
-		uint64_t width; /*!Width of the image, 8 byte long, can be zero.  */
-		uint64_t height; /*! Height of the image, 8 byte long, can be zero. */
+		uint64_t header_size = 0; /*!Header size, 8 byte long field.*/
+		uint64_t content_size =
+			0; /*! Content size, 8 byte long field.*/
+		uint64_t width =
+			0; /*!Width of the image, 8 byte long, can be zero.  */
+		uint64_t height =
+			0; /*! Height of the image, 8 byte long, can be zero. */
 		std::string
 			caption; /*! Caption of the image, cannot contain \n */
 		std::vector<std::string> tags; /*! Image tags */
 	};
 
 	ciff_header header;
-	std::unique_ptr<std::vector<uint8_t> > data; /*! Pixel data */
+	std::shared_ptr<std::vector<uint8_t> > data; /*! Pixel data */
 
 	enum parse_state {
 		magic,
@@ -55,13 +58,12 @@ class ciff {
 		h,
 		capt,
 		tag,
-		dat,
-		done
+		done,
 	}; /*! Enum for parsing, internal use only */
 
 	parse_state p = magic;
 
-	void parse_from_data(const std::vector<uint8_t> &data);
+	uint64_t parse_header(const std::vector<uint8_t> &data);
 };
 
 #endif
