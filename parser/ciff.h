@@ -33,6 +33,15 @@ class ciff {
 	//! Destructor
 	~ciff() = default;
 
+	uint64_t get_header_size(void) const;
+	uint64_t get_content_size(void) const;
+	uint64_t get_width(void) const;
+	uint64_t get_height(void) const;
+	std::string get_caption(void) const;
+	std::vector<std::string> get_tags(void) const;
+	std::shared_ptr<std::vector<uint8_t>> get_data(void);
+
+
     private:
 	struct ciff_header {
 		uint64_t header_size = 0; /*!Header size, 8 byte long field.*/

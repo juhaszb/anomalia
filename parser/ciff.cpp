@@ -11,7 +11,7 @@
 
 ciff::ciff(const std::string filename)
 {
-	std::ifstream ifs("test.ciff", std::ios::binary | std::ios::in);
+	std::ifstream ifs(filename, std::ios::binary | std::ios::in);
 
 	ifs.unsetf(std::ios::skipws);
 
@@ -25,6 +25,12 @@ ciff::ciff(const std::string filename)
 
 	std::vector<uint8_t>::const_iterator first = data.begin() + parsed;
 	std::vector<uint8_t>::const_iterator last = data.end();
+
+	if(this->data->size() != this->header.content_size)
+	{
+		throw "Content Size error";
+	}
+
 	this->data = std::make_shared<std::vector<uint8_t> >(first, last);
 }
 
@@ -35,6 +41,66 @@ ciff::ciff(std::vector<uint8_t> &&data)
 	std::vector<uint8_t>::const_iterator first = data.begin() + parsed;
 	std::vector<uint8_t>::const_iterator last = data.end();
 	this->data = std::make_shared<std::vector<uint8_t> >(first, last);
+}
+
+ciff::ciff(const ciff &c)
+{
+	this->header.header_size = c.header.header_size;
+	this->header.content_size = c.header.content_size;
+	this->header.caption = c.header.caption;
+	this->header.height = c.header.height;
+	this->header.width = c.header.width;
+	this->header.tags = c.header.tags;
+
+	this->data = std::make_shared<std::vector<uint8_t> >(*c.data.get());
+}
+
+ciff::ciff(ciff &&c)
+{
+	this->header.header_size = c.header.header_size;
+	this->header.content_size = c.header.content_size;
+	this->header.caption = c.header.caption;
+	this->header.height = c.header.height;
+	this->header.width = c.header.width;
+	this->header.tags = c.header.tags;
+
+	this->data = c.data;
+	c.data = nullptr;
+}
+
+uint64_t ciff::get_header_size(void) const
+{
+	return this->header.header_size;
+}
+
+uint64_t ciff::get_content_size(void) const
+{
+	return this->header.content_size;
+}
+
+uint64_t ciff::get_width(void) const
+{
+	return this->header.width;
+}
+
+uint64_t ciff::get_height(void) const
+{
+	return this->header.height;
+}
+
+std::string ciff::get_caption() const
+{
+	return this->header.caption;
+}
+
+std::vector<std::string> ciff::get_tags() const
+{
+	return this->header.tags;
+}
+
+std::shared_ptr<std::vector<uint8_t>> ciff::get_data(void) 
+{
+	return this->data;
 }
 
 uint64_t ciff::parse_header(const std::vector<uint8_t> &data)
