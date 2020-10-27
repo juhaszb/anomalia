@@ -1,10 +1,13 @@
 #include "caff.h"
-#include "ciff.h"
+
 #include <bits/stdint-uintn.h>
 #include <fstream>
 #include <iterator>
 #include <vector>
 #include <iostream>
+
+#include "ciff_to_ppm.h"
+#include "ciff.h"
 
 caff::caff(const std::string &filename)
 {
@@ -13,13 +16,39 @@ caff::caff(const std::string &filename)
 	ifs.unsetf(std::ios::skipws);
 
 	if (!ifs.is_open()) {
-		//TODO: throw exception
+		throw ifs.get();
 	}
 
 	std::vector<uint8_t> data((std::istreambuf_iterator<char>(ifs)),
 				  std::istreambuf_iterator<char>());
 	parse_data(data);
 }
+
+caff::caff(std::vector<uint8_t>& data)
+{
+	parse_data(data);
+}
+
+const std::vector<uint64_t>& caff::get_durations() const
+{
+	return this->durations;
+}
+
+const std::vector<ciff>& caff::get_ciff_images() const 
+{
+	return this->ciff_images;
+}
+
+caff_credits caff::get_caff_credits(void) const 
+{
+	return this->credits;
+}
+
+caff_head caff::get_caff_header(void) const 
+{
+	return this->caff_header;
+}
+
 
 void caff::parse_data(std::vector<uint8_t> &data)
 {

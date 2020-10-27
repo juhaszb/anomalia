@@ -16,7 +16,7 @@ ciff::ciff(const std::string filename)
 	ifs.unsetf(std::ios::skipws);
 
 	if (!ifs.is_open()) {
-		// TODO throw exception
+		throw ifs.get(); // Should work, code reviewer pls check
 	}
 	//std::istream_iterator<uint8_t> start(ifs), end;
 	std::vector<uint8_t> data((std::istreambuf_iterator<char>(ifs)),
@@ -26,8 +26,7 @@ ciff::ciff(const std::string filename)
 	std::vector<uint8_t>::const_iterator first = data.begin() + parsed;
 	std::vector<uint8_t>::const_iterator last = data.end();
 
-	if(this->data->size() != this->header.content_size)
-	{
+	if (this->data->size() != this->header.content_size) {
 		throw "Content Size error";
 	}
 
@@ -98,7 +97,7 @@ std::vector<std::string> ciff::get_tags() const
 	return this->header.tags;
 }
 
-std::shared_ptr<std::vector<uint8_t>> ciff::get_data(void) 
+std::shared_ptr<std::vector<uint8_t> > ciff::get_data(void)
 {
 	return this->data;
 }
@@ -183,12 +182,12 @@ uint64_t ciff::parse_header(const std::vector<uint8_t> &data)
 				p = done;
 			if (current_header_length == this->header.header_size &&
 			    s != '\0') {
-				//TODO: throw exception because parsing failed
+				throw parse_failed{
+					"Parse failed because header length isnt correct"
+				};
 			}
 			if (s != '\0') {
-				if (this->header.tags.size() ==
-				    tag_len) // TODO check default vector length, should be 0
-				{
+				if (this->header.tags.size() == tag_len) {
 					this->header.tags.push_back(
 						std::string{ (char)s });
 				} else {
@@ -209,7 +208,9 @@ uint64_t ciff::parse_header(const std::vector<uint8_t> &data)
 	}
 
 	if (p != done) {
-		throw "sajnos nem sikerult"; // TODO throw exception
+		throw parse_failed{
+			"Parse is not at end state, but there is no more data to parse"
+		};
 	}
 	return current_header_length; // should never reach this point
 }
