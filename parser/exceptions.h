@@ -21,20 +21,17 @@ class magic_exception : public ciff_exception {
 	std::string magic;
 };
 
+class parse_failed : public ciff_exception {
+    public:
+	parse_failed(const std::string &error) : error{ error } {};
 
-class parse_failed : public ciff_exception
-{
-	public:
-	parse_failed(const std::string& error) : error{error} {};
-
-	const char * what() const throw()
+	const char *what() const throw()
 	{
-		return error.c_str(); 
+		return error.c_str();
 	}
 
-	private:
+    private:
 	std::string error;
 };
-
 
 #endif
