@@ -113,7 +113,7 @@ void caff::parse_header(std::vector<uint8_t>::iterator beg,
 	magic_string[4] = '\0';
 
 	size_t i = 0;
-	size_t length = 0;
+
 
 	parse_header_state ph = magic;
 
