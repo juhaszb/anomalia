@@ -2,7 +2,7 @@
 #define __ciff_h_
 
 #include <array>
-#include <bits/stdint-uintn.h>
+//#include <bits/stdint-uintn.h>
 #include <exception>
 #include <memory>
 #include <string>
