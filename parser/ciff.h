@@ -22,7 +22,7 @@ class ciff {
 	/*!
     \param data From where to construct a ciff object
    */
-	ciff(std::vector<uint8_t> &&data);
+	ciff(std::vector<uint8_t> &data);
 
 	//! Copy constructor
 	ciff(const ciff &c);

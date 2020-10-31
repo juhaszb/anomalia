@@ -21,7 +21,14 @@ caff::caff(const std::string &filename)
 
 	std::vector<uint8_t> data((std::istreambuf_iterator<char>(ifs)),
 				  std::istreambuf_iterator<char>());
+	
+	try{
 	parse_data(data);
+	}
+	catch( std::exception& e)
+	{
+		throw;
+	}
 }
 
 caff::caff(std::vector<uint8_t>& data)
@@ -221,6 +228,10 @@ void caff::parse_credits(std::vector<uint8_t>::iterator beg,
 		}
 		}
 	}
+	if(this->credits.creator_len == 0 && pc == creator)
+	{
+		return;
+	}
 
 	if (pc != done_s) {
 		throw "Parse credits failed in caff class";
@@ -246,7 +257,7 @@ void caff::parse_ciff(std::vector<uint8_t>::iterator beg,
 		}
 		case ciff_blocks: {
 			std::vector<uint8_t> ciff_data{ it, end };
-			ciff ciff{ std::move(ciff_data) };
+			ciff ciff{ ciff_data };
 			this->ciff_images.push_back(ciff);
 			c = done_ciff;
 			break;

@@ -26,14 +26,16 @@ ciff::ciff(const std::string filename)
 	std::vector<uint8_t>::const_iterator first = data.begin() + parsed;
 	std::vector<uint8_t>::const_iterator last = data.end();
 
+	this->data = std::make_shared<std::vector<uint8_t> >(first, last);
+
+
 	if (this->data->size() != this->header.content_size) {
 		throw "Content Size error";
 	}
 
-	this->data = std::make_shared<std::vector<uint8_t> >(first, last);
 }
 
-ciff::ciff(std::vector<uint8_t> &&data)
+ciff::ciff(std::vector<uint8_t> &data)
 {
 	uint64_t parsed = parse_header(data);
 
