@@ -1,6 +1,6 @@
 #include "caff.h"
 
-#include <bits/stdint-uintn.h>
+//#include <bits/stdint-uintn.h>
 #include <fstream>
 #include <iterator>
 #include <vector>

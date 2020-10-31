@@ -1,6 +1,6 @@
 #include "ciff.h"
 
-#include <bits/stdint-uintn.h>
+//#include <bits/stdint-uintn.h>
 #include <fstream>
 #include <iostream>
 #include <iterator>
