@@ -2,7 +2,7 @@
 #define __caff_h_
 
 #include "ciff.h"
-#include <bits/stdint-uintn.h>
+//#include <bits/stdint-uintn.h>
 
 #define HEADER 0x01
 #define CREDITS 0x02
