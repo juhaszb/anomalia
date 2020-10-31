@@ -28,7 +28,7 @@ all: main
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-main: main.o $(OBJS_COMMON)
+main: $(OBJS_COMMON)
 	$(CXX) $(LDFLAGS) -o $(TARGET_LIB_NAME) $^
 
 .PHONY: clean
