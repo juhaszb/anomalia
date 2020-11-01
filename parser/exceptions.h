@@ -5,6 +5,7 @@
 #include <string>
 
 class ciff_exception : public std::exception {
+    public:
 	const char *what() const throw() = 0;
 };
 
