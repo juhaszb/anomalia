@@ -21,41 +21,38 @@ caff::caff(const std::string &filename)
 
 	std::vector<uint8_t> data((std::istreambuf_iterator<char>(ifs)),
 				  std::istreambuf_iterator<char>());
-	
-	try{
-	parse_data(data);
-	}
-	catch( std::exception& e)
-	{
+
+	try {
+		parse_data(data);
+	} catch (std::exception &e) {
 		throw;
 	}
 }
 
-caff::caff(std::vector<uint8_t>& data)
+caff::caff(std::vector<uint8_t> &data)
 {
 	parse_data(data);
 }
 
-const std::vector<uint64_t>& caff::get_durations() const
+const std::vector<uint64_t> &caff::get_durations() const
 {
 	return this->durations;
 }
 
-const std::vector<ciff>& caff::get_ciff_images() const 
+const std::vector<ciff> &caff::get_ciff_images() const
 {
 	return this->ciff_images;
 }
 
-caff_credits caff::get_caff_credits(void) const 
+caff_credits caff::get_caff_credits(void) const
 {
 	return this->credits;
 }
 
-caff_head caff::get_caff_header(void) const 
+caff_head caff::get_caff_header(void) const
 {
 	return this->caff_header;
 }
-
 
 void caff::parse_data(std::vector<uint8_t> &data)
 {
@@ -120,7 +117,6 @@ void caff::parse_header(std::vector<uint8_t>::iterator beg,
 	magic_string[4] = '\0';
 
 	size_t i = 0;
-
 
 	parse_header_state ph = magic;
 
@@ -228,8 +224,7 @@ void caff::parse_credits(std::vector<uint8_t>::iterator beg,
 		}
 		}
 	}
-	if(this->credits.creator_len == 0 && pc == creator)
-	{
+	if (this->credits.creator_len == 0 && pc == creator) {
 		return;
 	}
 

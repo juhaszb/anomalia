@@ -28,11 +28,9 @@ ciff::ciff(const std::string filename)
 
 	this->data = std::make_shared<std::vector<uint8_t> >(first, last);
 
-
 	if (this->data->size() != this->header.content_size) {
 		throw "Content Size error";
 	}
-
 }
 
 ciff::ciff(std::vector<uint8_t> &data)
@@ -67,6 +65,25 @@ ciff::ciff(ciff &&c)
 
 	this->data = c.data;
 	c.data = nullptr;
+}
+
+ciff &ciff::operator=(const ciff &c)
+{
+	if (&c == this) {
+		return *this;
+	}
+
+	this->header = c.header;
+	this->data = c.data;
+	return *this;
+}
+
+ciff &ciff::operator=(ciff &&c)
+{
+	this->data = c.data;
+	c.data = nullptr;
+	this->header = c.header;
+	return *this;
 }
 
 uint64_t ciff::get_header_size(void) const

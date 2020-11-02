@@ -10,18 +10,34 @@
 
 #define CIFF_MAGIC "CIFF"
 
+//! Ciff header
+struct ciff_header {
+	/*!Header size, 8 byte long field.*/
+	uint64_t header_size = 0;
+	/*! Content size, 8 byte long field.*/
+	uint64_t content_size = 0;
+	/*!Width of the image, 8 byte long, can be zero.  */
+	uint64_t width = 0;
+	/*! Height of the image, 8 byte long, can be zero. */
+	uint64_t height = 0;
+	/*! Caption of the image, cannot contain \n */
+	std::string caption;
+	/*! Image tags */
+	std::vector<std::string> tags;
+};
+
 class ciff {
     public:
 	//! Construct a ciff object from a file
 	/*!
-   \param filename From where to construct a ciff object
-  */
+   	\param filename From where to construct a ciff object
+  	*/
 	ciff(const std::string filename);
 
 	//! Construct a ciff object from data
 	/*!
-    \param data From where to construct a ciff object
-   */
+    	\param data From where to construct a ciff object
+  	 */
 	ciff(std::vector<uint8_t> &data);
 
 	//! Copy constructor
@@ -29,6 +45,12 @@ class ciff {
 
 	//! Move constructor
 	ciff(ciff &&c);
+
+	//! Copy assignment
+	ciff &operator=(const ciff &c);
+
+	//! Move assignment
+	ciff &operator=(ciff&& c);
 
 	//! Destructor
 	~ciff() = default;
@@ -46,24 +68,9 @@ class ciff {
 	//! Getter for tags
 	std::vector<std::string> get_tags(void) const;
 	//! Getter for inner data
-	std::shared_ptr<std::vector<uint8_t>> get_data(void);
-
+	std::shared_ptr<std::vector<uint8_t> > get_data(void);
 
     private:
-	//! Ciff header
-	struct ciff_header {
-		uint64_t header_size = 0; /*!Header size, 8 byte long field.*/
-		uint64_t content_size =
-			0; /*! Content size, 8 byte long field.*/
-		uint64_t width =
-			0; /*!Width of the image, 8 byte long, can be zero.  */
-		uint64_t height =
-			0; /*! Height of the image, 8 byte long, can be zero. */
-		std::string
-			caption; /*! Caption of the image, cannot contain \n */
-		std::vector<std::string> tags; /*! Image tags */
-	};
-
 	ciff_header header;
 	std::shared_ptr<std::vector<uint8_t> > data; /*! Pixel data */
 
