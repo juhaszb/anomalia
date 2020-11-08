@@ -10,6 +10,7 @@ import {
   AnimationListInitialState,
   AnimationListReducer,
 } from './animation-list/+state/animation-list.reducer';
+import { AnimationCommentsComponent } from './animation-list/animation-comments/animation-comments.component';
 import { AnimationListComponent } from './animation-list/animation-list.component';
 import { UploadAnimationComponent } from './animation-list/upload-animation/upload-animation.component';
 import { AuthComponent } from './auth.component';
@@ -29,6 +30,7 @@ import { UserListComponent } from './user-list/user-list.component';
     AuthComponent,
     AnimationListComponent,
     UploadAnimationComponent,
+    AnimationCommentsComponent
   ],
   imports: [
     CommonModule,

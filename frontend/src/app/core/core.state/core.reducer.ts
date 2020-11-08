@@ -36,7 +36,7 @@ export function CoreReducer(
 ): CoreState {
   switch (action.type) {
     case LoginFormActionTypes.LoginFormResponse: {
-      const decodedToken: DecodedToken = jwt_decode(action.payload.acceptToken);
+      const decodedToken: DecodedToken = jwt_decode(action.payload.acceptToken) as DecodedToken;
       state = {
         ...state,
         credentials: {

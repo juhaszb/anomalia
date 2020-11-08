@@ -36,6 +36,13 @@
         >
           Törlés
         </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="comments(animation.id)"
+        >
+          Kommentek
+        </button>
       </ng-container>
       <mat-spinner
         *ngIf="(deleteOrBuyId$ | async) === animation.id"
