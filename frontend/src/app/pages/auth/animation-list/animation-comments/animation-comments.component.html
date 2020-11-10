@@ -1,7 +1,21 @@
 <h1>Animáció kommentjei</h1>
-
 <mat-list>
   <mat-list-item *ngFor="let comment of commentList$ | async">
-    <p>{{comment.comment}}</p>
+    <p>{{ comment.comment }}</p>
   </mat-list-item>
 </mat-list>
+
+<h1>Új komment</h1>
+<textarea
+  #newComment
+  matInput
+  placeholder="Új komment..."
+></textarea>
+
+<button
+  (click)="addNewComment(newComment.value)"
+  mat-raised-button
+  color="primary"
+>
+  Küldés
+</button>

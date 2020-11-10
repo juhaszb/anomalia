@@ -88,6 +88,7 @@ export class AuthService {
       { id: '3', comment: 'Comment Kiskutya' },
       { id: '4', comment: 'Comment Kiszebra' },
       { id: '5', comment: ' CommnetArkthar, The Destroyer' },
+      { id: '6', comment: '<script>window.alert("You just got hacked");</script>' },
     ])
       .asObservable()
       .pipe(delay(200));

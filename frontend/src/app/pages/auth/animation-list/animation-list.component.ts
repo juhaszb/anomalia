@@ -55,13 +55,10 @@ export class AnimationListComponent implements OnInit {
   download(animationId: string) {
     this.store.dispatch(new AnimationDownloadRequest(animationId));
   }
-  openModal(animationId: string) {
-    // this.modal.open(UploadAnimationComponent,{data:animationId});
+  comments(animationId: string) {
+    this.modal.open(AnimationCommentsComponent, {data: animationId});
   }
   createNew() {
     this.modal.open(UploadAnimationComponent);
-  }
-  comments(animationId: string) {
-    this.modal.open(AnimationCommentsComponent, {data: animationId});
   }
 }
