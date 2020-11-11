@@ -15,4 +15,9 @@ export class AuthComponent implements OnInit {
   ngOnInit() {
     this.userType$ = this.store.pipe(select(CoreQuery.getCurrentUserType));
   }
+
+  logout() {
+    //TODO delete tokens
+    //TODO navigate to login screen
+  }
 }
