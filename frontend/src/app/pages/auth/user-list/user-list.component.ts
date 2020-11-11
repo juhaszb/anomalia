@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { UserType } from 'src/app/core/core.state/core.reducer';
+import { CoreQuery } from 'src/app/core/core.state/core.selector';
 
 import {
   UserListDeleteRequest,
@@ -19,6 +21,7 @@ export class UserListComponent implements OnInit {
   isDeleteRequesting$: Observable<boolean>;
   userList$: Observable<User[]>;
   deleteId$: Observable<string>;
+  userType$: Observable<UserType | undefined> | undefined;
 
   constructor(private store: Store) {}
 
@@ -34,6 +37,7 @@ export class UserListComponent implements OnInit {
     );
     this.deleteId$ = this.store.pipe(select(UserListQuery.getDeleteId));
     this.userList$ = this.store.pipe(select(UserListQuery.getUserList));
+    this.userType$ = this.store.pipe(select(CoreQuery.getCurrentUserType));
   }
 
   delete(id: string) {

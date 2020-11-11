@@ -7,7 +7,7 @@
   <ng-container matColumnDef="operations">
     <th mat-header-cell *matHeaderCellDef>Műveletek</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button [disabled]="isRequesting$ | async">
+      <button mat-icon-button [disabled]="isRequesting$ | async" *ngIf="(userType$ | async) === 'Admin'">
         <mat-icon (click)="delete(element.id)">{{
           element.id === (deleteId$ | async) && (isDeleteRequesting$ | async)
             ? 'cloud_upload'
