@@ -1,6 +1,9 @@
 {
     "python.pythonPath": ".env/bin/python",
     "python.languageServer": "Pylance",
+    "python.analysis.extraPaths": [
+        "webshop"
+    ],
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": false,
     "python.linting.pylintEnabled": true,
@@ -8,5 +11,5 @@
     "python.formatting.provider": "black",
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
 }
