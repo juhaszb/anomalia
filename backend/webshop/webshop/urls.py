@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from user.views import user_register
+from user.views import UserList, user_register
 
 urlpatterns = [
     path("user/register", user_register),
     path("user/login", TokenObtainPairView.as_view()),
     path("user/refresh", TokenRefreshView.as_view()),
+    path("user", UserList.as_view()),
 ]
