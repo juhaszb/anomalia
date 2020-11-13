@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST
 from rest_framework.generics import ListAPIView
+from rest_framework_simplejwt.tokens import RefreshToken
 from user.serializers import UserSerializer
 
 
@@ -16,6 +17,14 @@ def user_register(request):
         return Response("Username already exists", HTTP_400_BAD_REQUEST)
 
     User.objects.create_user(username=username, password=password)
+    return Response(status=HTTP_204_NO_CONTENT)
+
+
+@api_view(["POST"])
+def user_logout(request):
+    refresh = RefreshToken(request.data["refresh"])
+    refresh.blacklist()
+
     return Response(status=HTTP_204_NO_CONTENT)
 
 
