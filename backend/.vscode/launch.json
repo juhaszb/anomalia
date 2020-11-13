@@ -8,6 +8,7 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
+            "envFile": "${workspaceFolder}/.env_vars",
             "program": "${workspaceFolder}/webshop/manage.py",
             "args": [
                 "runserver"
