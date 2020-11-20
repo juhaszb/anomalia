@@ -34,3 +34,14 @@ This folder contains the backend of the webshop. It is a Django project written 
 10. Run the server:
 
     - `python manage.py runserver`
+
+## (Optional) Setup VS Code for development
+
+1. Do the steps in the previous section
+2. Install code formatting and linting tools for the Python environment:
+
+    - `pip install pylint bandit black`
+
+2. Open the `backend` folder in VS Code
+3. Install the recommended extensions
+4. You can now open the source files in VS Code with code assistance, use VS Code's built-in debugger etc.
