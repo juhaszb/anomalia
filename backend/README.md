@@ -44,4 +44,5 @@ This folder contains the backend of the webshop. It is a Django project written 
 
 2. Open the `backend` folder in VS Code
 3. Install the recommended extensions
+4. Create the `.env_vars` file in the top folder, and add the two required environment variables in `<VAR_NAME>=<VALUE>` format
 4. You can now open the source files in VS Code with code assistance, use VS Code's built-in debugger etc.
