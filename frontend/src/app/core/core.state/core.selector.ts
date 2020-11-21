@@ -21,9 +21,16 @@ const isLoggedIn = createSelector(getCoreState, (state: CoreState) => {
   return !!state?.credentials?.acceptToken;
 });
 
+const deleteCredentials = createSelector(getCoreState, (state: CoreState) => {
+  if (state != null) {
+    state.credentials = undefined;
+  }
+});
+
 export const CoreQuery = {
   getCredentials,
   getAcceptToken,
   getCurrentUserType,
   isLoggedIn,
+  deleteCredentials,
 };
