@@ -75,10 +75,6 @@ TEMPLATES = [
     },
 ]
 
-CORS_ALLOW_HEADERS = list(default_headers) + [
-    "access-control-allow-origin",
-]
-
 
 WSGI_APPLICATION = "webshop.wsgi.application"
 
