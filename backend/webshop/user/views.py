@@ -5,8 +5,13 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
 
-from user.serializers import UserSerializer
+from user.serializers import UserSerializer, UserTypeTokenObtainPairSerializer
+
+
+class TokenObtainPairViewWithUserType(TokenObtainPairView):
+    serializer_class = UserTypeTokenObtainPairSerializer
 
 
 @api_view(["POST"])
