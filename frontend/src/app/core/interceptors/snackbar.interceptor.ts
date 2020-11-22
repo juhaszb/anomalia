@@ -1,46 +1,35 @@
 import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-  HttpResponse,
+	HttpErrorResponse,
+	HttpEvent,
+	HttpHandler,
+	HttpInterceptor,
+	HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class SnackbarInterceptor implements HttpInterceptor {
-  constructor(private snackBar: MatSnackBar) {}
+	constructor(private snackbar: MatSnackBar) {}
 
-  intercept(
-    // tslint:disable-next-line: no-any
-    req: HttpRequest<any>,
-    next: HttpHandler
-    // tslint:disable-next-line: no-any
-  ): Observable<HttpEvent<any>> {
-    this.showSnackbar(req, next);
-    return next.handle(req);
-  }
-
-  // tslint:disable-next-line: no-any
-  private showSnackbar(req: HttpRequest<any>, next: HttpHandler) {
-    next.handle(req).pipe(
-      tap((event) => {
-        if (event instanceof HttpResponse && event.status >= 305) {
-          this.openSnackBar('Sikertelen művelet', ['errorSnackBar']);
-        } else {
-          this.openSnackBar('Sikeres művelet', ['successSnackBar']);
-        }
-      })
-    );
-  }
-
-  openSnackBar(message: string, classes: string[]) {
-    this.snackBar.open(message, 'Bezárás', {
-      duration: 2000,
-      panelClass: classes,
-    });
-  }
+	intercept(
+		// tslint:disable-next-line: no-any
+		req: HttpRequest<any>,
+		next: HttpHandler
+		// tslint:disable-next-line: no-any
+	): Observable<HttpEvent<any>> {
+		return next.handle(req).pipe(
+			catchError((error: HttpErrorResponse) => {
+				if (error.status >= 400) {
+					this.snackbar.open('Hiba történt', '', {
+						duration: 2000,
+						panelClass: 'error-snackbar',
+					});
+				}
+				return throwError(error);
+			})
+		);
+	}
 }
