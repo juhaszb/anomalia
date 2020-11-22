@@ -1,0 +1,13 @@
+{
+	"fileServerFolder": "./cypress",
+	"fixturesFolder": "./cypress/fixtures",
+	"integrationFolder": "./cypress/integration",
+	"supportFile": false,
+	"video": true,
+	"videosFolder": "output/e2e/videos",
+	"screenshotsFolder": "output/e2e/screenshots",
+	"chromeWebSecurity": false,
+	"viewportWidth": 1920,
+	"viewportHeight": 1080,
+	"numTestsKeptInMemory": 4
+}
