@@ -40,7 +40,7 @@ This folder contains the backend of the webshop. It is a Django project written 
 1. Do the steps in the previous section
 2. Install code formatting and linting tools for the Python environment:
 
-    - `pip install pylint bandit black`
+    - `pip install pylint pylint-django bandit black`
 
 2. Open the `backend` folder in VS Code
 3. Install the recommended extensions
