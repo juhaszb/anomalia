@@ -50,4 +50,5 @@ PYBIND11_MODULE(parser, m)
 		.def("get_caff_header", &caff::get_caff_header);
 
 	m.def("ciff_to_ppm", &ciff_to_ppm);
+	m.def("ciff_to_ppm_p6", &ciff_to_ppm_p6);
 }
