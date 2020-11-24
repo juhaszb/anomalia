@@ -5,5 +5,6 @@
 #include "ciff.h"
 
 void ciff_to_ppm(ciff &c, std::string &filename);
+void ciff_to_ppm_p6(ciff &c, std::string &filename);
 
 #endif
