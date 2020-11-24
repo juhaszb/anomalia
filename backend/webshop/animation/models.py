@@ -1,5 +1,7 @@
 import os
+
 from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.signals import pre_delete
@@ -20,10 +22,13 @@ class Animation(models.Model):
 
 @receiver(pre_delete, sender=Animation)
 def delete_animation(sender, **kwargs):
-    if os.path.exists(sender.caff_file.url):
-        os.remove(sender.caff_file.url)
-    if os.path.exists(sender.preview_file_path):
-        os.remove(sender.preview_file_path)
+    animation = kwargs["instance"]
+    caff_path = os.path.join(settings.MEDIA_ROOT, animation.caff_file.name)
+    preview_path = animation.preview_file_path
+    if os.path.exists(caff_path):
+        os.remove(caff_path)
+    if os.path.exists(preview_path):
+        os.remove(preview_path)
 
 
 class Comment(models.Model):

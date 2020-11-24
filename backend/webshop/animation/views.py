@@ -1,7 +1,11 @@
-import parser
+import os
+from . import parser
+import uuid
 
+from django.conf import settings
 from django.contrib.auth.models import User
-from django.http.response import Http404
+from django.http.response import Http404, FileResponse
+from PIL import Image
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import DestroyAPIView, ListAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
@@ -45,7 +49,39 @@ class AnimationListOrSend(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        pass
+        data = request.data["file"]
+        current_dir = os.path.dirname(__file__)
+        preview_filename = str(uuid.uuid4())
+        ppm_path = os.path.join(current_dir, preview_filename)
+        try:
+            caff = parser.Caff([b for b in data.read()])
+
+            parser.ciff_to_ppm_p6(caff.get_ciff_images()[0], ppm_path)
+
+            jpg_out_path = os.path.join(
+                current_dir, "static", "animation", preview_filename + ".jpg"
+            )
+            with Image.open(ppm_path) as im:
+                os.makedirs(os.path.dirname(jpg_out_path), exist_ok=True)
+                im.save(jpg_out_path)
+        except:
+            return Response(status=HTTP_400_BAD_REQUEST)
+        finally:
+            if os.path.exists(ppm_path):
+                os.remove(ppm_path)
+
+        user = request.user
+        animation = Animation.objects.create(
+            owner=user,
+            preview_file_path=jpg_out_path,
+            preview_file_url=request.build_absolute_uri(
+                f"{settings.STATIC_URL}animation/{preview_filename}.jpg"
+            ),
+            caff_file=data,
+        )
+        animation.users_purchased.add(user)
+
+        return Response(status=HTTP_204_NO_CONTENT)
 
 
 @api_view(["POST"])
@@ -58,7 +94,7 @@ def animation_buy(request, pk):
     except Animation.DoesNotExist:
         return Http404
 
-    user.animation_set.add(animation)
+    user.purchased_animation_set.add(animation)
 
     return Response(status=HTTP_204_NO_CONTENT)
 
@@ -70,9 +106,11 @@ def animation_download(request, pk):
     except Animation.DoesNotExist:
         return Http404
 
-    if request.user in animation.users_purchased:
-        with open(animation.caff_file.url, "rb") as f:
-            res = Response(f.read())
+    if request.user in animation.users_purchased.all():
+        f = open(os.path.join(settings.MEDIA_ROOT, animation.caff_file.name), "rb")
+        res = FileResponse(f)
+        res["Content-Length"] = animation.caff_file.size
+        res["Content-Disposition"] = f"attachment; filename={animation.id}.caff"
     else:
         res = Response(status=HTTP_401_UNAUTHORIZED)
 
