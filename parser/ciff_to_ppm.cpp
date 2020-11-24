@@ -29,7 +29,6 @@ void ciff_to_ppm_p6(ciff &c, std::string &filename)
 	if (fp) {
 		fp << "P6 " << c.get_width() << " " << c.get_height() << " 255"
 		   << std::endl;
-		;
 
 		for (auto s : *c.get_data()) {
 			char d = s;
