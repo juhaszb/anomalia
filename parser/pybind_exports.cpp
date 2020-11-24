@@ -13,7 +13,6 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(parser, m)
 {
-
 	py::register_exception<ciff_exception>(m, "CiffException");
 	py::register_exception<magic_exception>(m, "MagicException");
 	py::register_exception<parse_failed>(m, "ParseFailed");
@@ -28,6 +27,10 @@ PYBIND11_MODULE(parser, m)
 		.def("get_height", &ciff::get_height)
 		.def("get_caption", &ciff::get_caption)
 		.def("get_tags", &ciff::get_tags);
+
+	py::class_<caff_head>(m, "CaffHead")
+		.def_readwrite("header_size", &caff_head::header_size)
+		.def_readwrite("num_anim", &caff_head::num_anim);
 
 	py::class_<caff_credits>(m, "CaffCredits")
 		.def_readwrite("year", &caff_credits::year)
