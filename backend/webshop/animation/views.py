@@ -1,20 +1,17 @@
 import os
-from . import parser
 import uuid
 
 from django.conf import settings
-from django.contrib.auth.models import User
-from django.http.response import Http404, FileResponse
+from django.http.response import FileResponse, Http404
 from PIL import Image
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.generics import DestroyAPIView, ListAPIView
+from rest_framework.generics import DestroyAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import (
     HTTP_204_NO_CONTENT,
     HTTP_400_BAD_REQUEST,
     HTTP_401_UNAUTHORIZED,
-    HTTP_404_NOT_FOUND,
 )
 from rest_framework.views import APIView
 
@@ -24,6 +21,7 @@ from animation.serializers import (
     CommentSerializer,
 )
 
+from . import parser
 from .models import Animation, Comment
 
 
