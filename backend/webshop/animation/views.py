@@ -1,3 +1,4 @@
+import logging
 import os
 import uuid
 
@@ -25,6 +26,9 @@ from . import parser
 from .models import Animation, Comment
 
 
+logger = logging.getLogger(__name__)
+
+
 class AnimationListOrSend(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -47,6 +51,7 @@ class AnimationListOrSend(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        user = request.user
         data = request.data["file"]
         current_dir = os.path.dirname(__file__)
         preview_filename = str(uuid.uuid4())
@@ -63,12 +68,12 @@ class AnimationListOrSend(APIView):
                 os.makedirs(os.path.dirname(jpg_out_path), exist_ok=True)
                 im.save(jpg_out_path)
         except:
+            logger.error(f"Error while uploading. User: {user.username}")
             return Response(status=HTTP_400_BAD_REQUEST)
         finally:
             if os.path.exists(ppm_path):
                 os.remove(ppm_path)
 
-        user = request.user
         animation = Animation.objects.create(
             owner=user,
             preview_file_path=jpg_out_path,
@@ -90,6 +95,7 @@ def animation_buy(request, pk):
     try:
         animation = Animation.objects.get(pk=pk)
     except Animation.DoesNotExist:
+        logger.error(f"Animation to buy doesn't exist. User: {user.username}")
         return Http404
 
     user.purchased_animation_set.add(animation)
@@ -99,17 +105,23 @@ def animation_buy(request, pk):
 
 @api_view(["GET"])
 def animation_download(request, pk):
+    user = request.user
+
     try:
         animation = Animation.objects.get(pk=pk)
     except Animation.DoesNotExist:
+        logger.error(f"Animation to download doesn't exist. User: {user.username}")
         return Http404
 
-    if request.user in animation.users_purchased.all():
+    if user in animation.users_purchased.all():
         f = open(os.path.join(settings.MEDIA_ROOT, animation.caff_file.name), "rb")
         res = FileResponse(f)
         res["Content-Length"] = animation.caff_file.size
         res["Content-Disposition"] = f"attachment; filename={animation.id}.caff"
     else:
+        logger.error(
+            f"Animation to download isn't owned by user. User: {user.username}"
+        )
         res = Response(status=HTTP_401_UNAUTHORIZED)
 
     return res
@@ -121,6 +133,9 @@ def animation_comment(request, pk):
     try:
         animation = Animation.objects.get(pk=pk)
     except Animation.DoesNotExist:
+        logger.error(
+            f"Animation to comment doesn't exist. User: {request.user.username}"
+        )
         return Http404
 
     if request.method == "GET":

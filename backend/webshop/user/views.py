@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.generics import DestroyAPIView, ListAPIView
@@ -10,6 +12,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from user.serializers import UserSerializer, UserTypeTokenObtainPairSerializer
 
 
+logger = logging.getLogger(__name__)
+
+
 class TokenObtainPairViewWithUserType(TokenObtainPairView):
     serializer_class = UserTypeTokenObtainPairSerializer
 
@@ -20,6 +25,7 @@ def user_register(request):
     password = request.data["password"]
 
     if User.objects.filter(username=username).exists():
+        logger.error(f"Username already exists: {username}")
         return Response("Username already exists", HTTP_400_BAD_REQUEST)
 
     User.objects.create_user(username=username, password=password)
