@@ -1,3 +1,17 @@
+"""
+Animation models
+
+This module contains the models used for the animation app.
+
+The Animation model contains data related to the animations,
+like its owner, path on the server to the preview image,
+the URL where the preview image is available, the CAFF file itself,
+and the users who bought this animation.
+
+The Comment model contains the comments posted for an animation.
+It has a foreign key to the animation, and it contains the text of the comment.
+"""
+
 import os
 
 from django.conf import settings

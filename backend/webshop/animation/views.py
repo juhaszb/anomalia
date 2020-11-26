@@ -1,3 +1,20 @@
+"""
+Animation views
+
+This module contains the views of the animation app.
+The app has the following features:
+
+- List animations: get a list of animations with id, preview image,
+and whether the logged in user has bought it.
+- Upload animation: upload an animation to the server.
+- Buy animation: buy an animation for the logged in user.
+- Download animation: send the CAFF file to the user if they are logged in
+and if they have bought the animation.
+- Comment animation: a logged in user can post a comment on an animation,
+or get all comments posted for an animation.
+- Delete animation: an admin user can delete an animation.
+"""
+
 import logging
 import os
 import uuid

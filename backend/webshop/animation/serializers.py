@@ -1,3 +1,13 @@
+"""
+Animation serializers
+
+This module provides serializers for the REST API.
+
+Animation response is an item of the list when getting all animations.
+
+Comments are serialized with their ID and text.
+"""
+
 from rest_framework import serializers
 
 from animation.models import Comment

@@ -1,3 +1,18 @@
+"""
+User views
+
+This module contains the views of the user app.
+The app has the following features:
+
+- Login: a user can login with a username and password, then
+they receive a JWT token pair.
+- Register: add a new user with the given username and password.
+- Logout: a user can log out of the system, which blacklists
+their JWT refresh token.
+- List users: an admin user can list all user IDs and usernames in the system.
+- Delete user: an admin user can delete a user.
+"""
+
 import logging
 
 from django.contrib.auth.models import User
