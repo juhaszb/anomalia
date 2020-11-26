@@ -68,7 +68,7 @@ class AnimationListOrSend(APIView):
                 os.makedirs(os.path.dirname(jpg_out_path), exist_ok=True)
                 im.save(jpg_out_path)
         except:
-            logger.error(f"Error while uploading. User: {user.username}")
+            logger.error("Error while uploading. User: %s", user.username)
             return Response(status=HTTP_400_BAD_REQUEST)
         finally:
             if os.path.exists(ppm_path):
@@ -95,7 +95,7 @@ def animation_buy(request, pk):
     try:
         animation = Animation.objects.get(pk=pk)
     except Animation.DoesNotExist:
-        logger.error(f"Animation to buy doesn't exist. User: {user.username}")
+        logger.error("Animation to buy doesn't exist. User: %s", user.username)
         return Http404
 
     user.purchased_animation_set.add(animation)
@@ -110,7 +110,7 @@ def animation_download(request, pk):
     try:
         animation = Animation.objects.get(pk=pk)
     except Animation.DoesNotExist:
-        logger.error(f"Animation to download doesn't exist. User: {user.username}")
+        logger.error("Animation to download doesn't exist. User: %s", user.username)
         return Http404
 
     if user in animation.users_purchased.all():
@@ -120,7 +120,7 @@ def animation_download(request, pk):
         res["Content-Disposition"] = f"attachment; filename={animation.id}.caff"
     else:
         logger.error(
-            f"Animation to download isn't owned by user. User: {user.username}"
+            "Animation to download isn't owned by user. User: %s", user.username
         )
         res = Response(status=HTTP_401_UNAUTHORIZED)
 
@@ -134,7 +134,7 @@ def animation_comment(request, pk):
         animation = Animation.objects.get(pk=pk)
     except Animation.DoesNotExist:
         logger.error(
-            f"Animation to comment doesn't exist. User: {request.user.username}"
+            "Animation to comment doesn't exist. User: %s", request.user.username
         )
         return Http404
 

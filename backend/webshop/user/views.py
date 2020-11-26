@@ -25,7 +25,7 @@ def user_register(request):
     password = request.data["password"]
 
     if User.objects.filter(username=username).exists():
-        logger.error(f"Username already exists: {username}")
+        logger.error("Username already exists: %s", username)
         return Response("Username already exists", HTTP_400_BAD_REQUEST)
 
     User.objects.create_user(username=username, password=password)
