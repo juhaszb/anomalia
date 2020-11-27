@@ -40,6 +40,7 @@ I ran valgrind using all three provided test files. Neither of them reported mem
 
 ### Infer results
 
+![image](https://user-images.githubusercontent.com/15946784/100483236-9b45d600-30f8-11eb-8e3a-773e54bf433d.png)
 
 ### AFL results
 
