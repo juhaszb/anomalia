@@ -35,11 +35,17 @@ ciff::ciff(const std::string filename)
 
 ciff::ciff(std::vector<uint8_t> &data)
 {
-	uint64_t parsed = parse_header(data);
+	try {
+		uint64_t parsed = parse_header(data);
 
-	std::vector<uint8_t>::const_iterator first = data.begin() + parsed;
-	std::vector<uint8_t>::const_iterator last = data.end();
-	this->data = std::make_shared<std::vector<uint8_t> >(first, last);
+		std::vector<uint8_t>::const_iterator first =
+			data.begin() + parsed;
+		std::vector<uint8_t>::const_iterator last = data.end();
+		this->data =
+			std::make_shared<std::vector<uint8_t> >(first, last);
+	} catch (std::exception &e) {
+		throw;
+	}
 }
 
 ciff::ciff(const ciff &c)
@@ -210,6 +216,8 @@ uint64_t ciff::parse_header(const std::vector<uint8_t> &data)
 					this->header.tags.push_back(
 						std::string{ (char)s });
 				} else {
+					if (header.tags.size() == 0)
+						throw "Header tag size cant be zero here";
 					this->header
 						.tags[header.tags.size() - 1] +=
 						(char)s;
