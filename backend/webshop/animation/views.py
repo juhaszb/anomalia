@@ -69,11 +69,12 @@ class AnimationListOrSend(APIView):
 
     def post(self, request, format=None):
         user = request.user
-        data = request.data["file"]
         current_dir = os.path.dirname(__file__)
         preview_filename = str(uuid.uuid4())
         ppm_path = os.path.join(current_dir, preview_filename)
+
         try:
+            data = request.data["file"]
             caff = parser.Caff([b for b in data.read()])
 
             parser.ciff_to_ppm_p6(caff.get_ciff_images()[0], ppm_path)

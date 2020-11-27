@@ -36,6 +36,9 @@ class TokenObtainPairViewWithUserType(TokenObtainPairView):
 
 @api_view(["POST"])
 def user_register(request):
+    if any(field not in request.data for field in ("username", "password")):
+        return Response(status=HTTP_400_BAD_REQUEST)
+
     username = request.data["username"]
     password = request.data["password"]
 
@@ -50,6 +53,9 @@ def user_register(request):
 @api_view(["POST"])
 @permission_classes(IsAuthenticated)
 def user_logout(request):
+    if "refresh" not in request.data:
+        return Response(status=HTTP_400_BAD_REQUEST)
+
     refresh = RefreshToken(request.data["refresh"])
     refresh.blacklist()
 
