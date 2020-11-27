@@ -9,11 +9,13 @@
 #define ANIMATION 0x03
 #define CAFF_MAGIC "CAFF"
 
+//! Structure for caff header
 struct caff_head {
 	uint64_t header_size = 0;
 	uint64_t num_anim = 0;
 };
 
+//! Structure for caff credits
 struct caff_credits {
 	uint16_t year = 0;
 	uint8_t month = 0;
