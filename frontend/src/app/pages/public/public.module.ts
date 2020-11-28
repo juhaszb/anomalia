@@ -6,36 +6,36 @@ import { SharedUiModule } from 'src/app/shared-ui.module';
 
 import { LoginFormEffects } from './login/+state/login.effects';
 import {
-  LOGINFORM_FEATURE_KEY,
-  loginFormInitialState,
-  LoginFormReducer,
+	LOGINFORM_FEATURE_KEY,
+	loginFormInitialState,
+	LoginFormReducer,
 } from './login/+state/login.reducer';
 import { LoginComponent } from './login/login.component';
 import { PublicRoutingModule } from './public.routing';
 import { PublicServiceService as PublicService } from './public.service';
 import { RegisterFormEffects } from './register/+state/register.effects';
 import {
-  REGISTERFORM_FEATURE_KEY,
-  registerFormInitialState,
-  RegisterFormReducer,
+	REGISTERFORM_FEATURE_KEY,
+	registerFormInitialState,
+	RegisterFormReducer,
 } from './register/+state/register.reducer';
 import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent],
-  imports: [
-    CommonModule,
-    PublicRoutingModule,
-    SharedUiModule,
-    EffectsModule.forFeature([RegisterFormEffects]),
-    StoreModule.forFeature(REGISTERFORM_FEATURE_KEY, RegisterFormReducer, {
-      initialState: registerFormInitialState,
-    }),
-    EffectsModule.forFeature([LoginFormEffects]),
-    StoreModule.forFeature(LOGINFORM_FEATURE_KEY, LoginFormReducer, {
-      initialState: loginFormInitialState,
-    }),
-  ],
-  providers: [PublicService],
+	declarations: [RegisterComponent, LoginComponent],
+	imports: [
+		CommonModule,
+		PublicRoutingModule,
+		SharedUiModule,
+		EffectsModule.forFeature([RegisterFormEffects]),
+		StoreModule.forFeature(REGISTERFORM_FEATURE_KEY, RegisterFormReducer, {
+			initialState: registerFormInitialState,
+		}),
+		EffectsModule.forFeature([LoginFormEffects]),
+		StoreModule.forFeature(LOGINFORM_FEATURE_KEY, LoginFormReducer, {
+			initialState: loginFormInitialState,
+		}),
+	],
+	providers: [PublicService],
 })
 export class PublicModule {}

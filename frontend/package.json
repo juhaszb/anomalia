@@ -6,7 +6,7 @@
 		"start": "ng serve",
 		"build": "ng build",
 		"test": "ng test",
-		"lint": "ng lint",
+		"lint": "ng lint frontend",
 		"e2e": "ng e2e",
 		"format": "./node_modules/.bin/prettier --write \"src/**/*.{js,ts,html,md,scss,css}\"",
 		"format:check": "./node_modules/.bin/prettier --check \"src/**/*.{js,ts,html,md,scss,css}\"",

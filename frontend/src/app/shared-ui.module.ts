@@ -11,15 +11,15 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
-  MAT_DIALOG_DEFAULT_OPTIONS,
-  MatDialogConfig,
-  MatDialogModule,
+	MAT_DIALOG_DEFAULT_OPTIONS,
+	MatDialogConfig,
+	MatDialogModule,
 } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {
-  MAT_FORM_FIELD_DEFAULT_OPTIONS,
-  MatFormFieldDefaultOptions,
-  MatFormFieldModule,
+	MAT_FORM_FIELD_DEFAULT_OPTIONS,
+	MatFormFieldDefaultOptions,
+	MatFormFieldModule,
 } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -40,57 +40,57 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 export const materialModules = [
-  MatButtonModule,
-  MatCheckboxModule,
-  MatSidenavModule,
-  MatToolbarModule,
-  MatIconModule,
-  MatListModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatFormFieldModule,
-  MatExpansionModule,
-  MatSortModule,
-  MatStepperModule,
-  MatSelectModule,
-  MatRadioModule,
-  MatCardModule,
-  MatInputModule,
-  MatProgressSpinnerModule,
-  MatMenuModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-  MatDialogModule,
-  MatSnackBarModule,
-  MatAutocompleteModule,
-  MatChipsModule,
-  MatTooltipModule,
-  MatTabsModule,
-  MatButtonToggleModule,
-  MatProgressBarModule,
-  PortalModule,
+	MatButtonModule,
+	MatCheckboxModule,
+	MatSidenavModule,
+	MatToolbarModule,
+	MatIconModule,
+	MatListModule,
+	MatTableModule,
+	MatPaginatorModule,
+	MatFormFieldModule,
+	MatExpansionModule,
+	MatSortModule,
+	MatStepperModule,
+	MatSelectModule,
+	MatRadioModule,
+	MatCardModule,
+	MatInputModule,
+	MatProgressSpinnerModule,
+	MatMenuModule,
+	MatDatepickerModule,
+	MatNativeDateModule,
+	MatDialogModule,
+	MatSnackBarModule,
+	MatAutocompleteModule,
+	MatChipsModule,
+	MatTooltipModule,
+	MatTabsModule,
+	MatButtonToggleModule,
+	MatProgressBarModule,
+	PortalModule,
 ];
 
 const appearance: MatFormFieldDefaultOptions = {
-  appearance: 'outline',
+	appearance: 'outline',
 };
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ...materialModules],
-  exports: [FormsModule, ReactiveFormsModule, ...materialModules],
-  providers: [
-    {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: appearance,
-    },
-    { provide: MAT_TABS_CONFIG, useValue: { animationDuration: '0' } },
-    {
-      provide: MAT_DIALOG_DEFAULT_OPTIONS,
-      useValue: {
-        ...new MatDialogConfig(),
-        restoreFocus: false,
-      } as MatDialogConfig,
-    },
-  ],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, ...materialModules],
+	exports: [FormsModule, ReactiveFormsModule, ...materialModules],
+	providers: [
+		{
+			provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+			useValue: appearance,
+		},
+		{ provide: MAT_TABS_CONFIG, useValue: { animationDuration: '0' } },
+		{
+			provide: MAT_DIALOG_DEFAULT_OPTIONS,
+			useValue: {
+				...new MatDialogConfig(),
+				restoreFocus: false,
+			} as MatDialogConfig,
+		},
+	],
 })
 export class SharedUiModule {}

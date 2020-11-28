@@ -23,7 +23,7 @@ export class TokenInterceptor implements HttpInterceptor {
 	}
 	// tslint:disable-next-line: no-any
 	private setToken(request: HttpRequest<any>): HttpRequest<any> {
-		let token = localStorage.getItem('access');
+		const token = localStorage.getItem('access');
 
 		if (token) {
 			return request.clone({

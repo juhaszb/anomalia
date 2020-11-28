@@ -4,8 +4,8 @@ import { Subscription } from 'rxjs';
 @Directive()
 // tslint:disable-next-line: directive-class-suffix
 export class UnsubscribeOnDestroyBaseComponent implements OnDestroy {
-  subscriptions: Subscription[] = [];
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
-  }
+	subscriptions: Subscription[] = [];
+	ngOnDestroy(): void {
+		this.subscriptions.forEach((sub) => sub.unsubscribe());
+	}
 }

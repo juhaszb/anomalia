@@ -25,6 +25,7 @@ export class RefreshInterceptor implements HttpInterceptor {
 							refresh: localStorage.getItem('refresh'),
 						})
 						.pipe(
+							// tslint:disable-next-line: no-any
 							switchMap((data: any) => {
 								localStorage.setItem('access', data.access);
 								this.store.dispatch(new SetToken());
@@ -32,7 +33,6 @@ export class RefreshInterceptor implements HttpInterceptor {
 							})
 						);
 				} else {
-					//  this.store.dispatch(new LogoutRequest)
 					return throwError('');
 				}
 			})
