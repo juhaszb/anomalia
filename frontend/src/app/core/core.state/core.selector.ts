@@ -19,7 +19,6 @@ const isLoggedIn = createSelector(getCoreState, (state: CoreState) => {
 	return !!state?.credentials?.access;
 });
 const getRefresh = createSelector(getCoreState, (state: CoreState) => {
-	console.log(state?.credentials?.refresh ?? '');
 	return state?.credentials?.refresh ?? '';
 });
 const deleteCredentials = createSelector(getCoreState, (state: CoreState) => {

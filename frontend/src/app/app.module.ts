@@ -26,6 +26,7 @@ import {
 	CoreReducer,
 } from './core/core.state/core.reducer';
 import { CoreService } from './core/core.state/core.service';
+import { RefreshInterceptor } from './core/interceptors/refresh.interceptor';
 import { RequestInterceptor } from './core/interceptors/request.interceptor';
 import { SnackbarInterceptor } from './core/interceptors/snackbar.interceptor';
 import { SuccessInterceptor } from './core/interceptors/success.interceptor';
@@ -37,7 +38,7 @@ export function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
 	// tslint:disable-next-line: no-any
 	return (state: any, action: any) => {
 		if (action.type === 'SET_ROOT_STATE') {
-			return action.payload;
+			state = undefined;
 		}
 		return reducer(state, action);
 	};
@@ -64,7 +65,6 @@ registerLocaleData(localeHu);
 				},
 			}
 		),
-		// Connects RouterModule with StoreModule, uses MinimalRouterStateSerializer by default
 		StoreRouterConnectingModule.forRoot({
 			navigationActionTiming: NavigationActionTiming.PostActivation,
 		}),
@@ -72,7 +72,6 @@ registerLocaleData(localeHu);
 		StoreModule.forFeature(CORE_FEATURE_KEY, CoreReducer, {
 			initialState: CoreInitialState,
 		}),
-		// Instrumentation must be imported after importing StoreModule (config is optional)
 		!environment.production ? StoreDevtoolsModule.instrument() : [],
 		BrowserAnimationsModule,
 	],
@@ -84,6 +83,7 @@ registerLocaleData(localeHu);
 		{ provide: HTTP_INTERCEPTORS, useClass: SnackbarInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: SuccessInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: RefreshInterceptor, multi: true },
 	],
 	bootstrap: [AppComponent],
 })

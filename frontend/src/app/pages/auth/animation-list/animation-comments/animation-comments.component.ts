@@ -1,41 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CommonModule } from '@angular/common';
+import { select, Store } from '@ngrx/store';
+import { UnsubscribeOnDestroyBaseComponent } from 'src/app/components/UnSubOnDestroy';
 
 import {
-  AnimationGetCommentRequest,
-  AnimationPostCommentRequest,
+	AnimationGetCommentRequest,
+	AnimationPostCommentChange,
+	AnimationPostCommentRequest,
 } from '../+state/animation-list.actions';
 import { AnimationListQuery } from '../+state/animation-list.selector';
-import { Inject } from '@angular/core';
 
 @Component({
-  selector: 'anomalia-animation-comments',
-  templateUrl: './animation-comments.component.html',
-  styleUrls: ['./animation-comments.component.scss'],
+	selector: 'anomalia-animation-comments',
+	templateUrl: './animation-comments.component.html',
+	styleUrls: ['./animation-comments.component.scss'],
 })
-export class AnimationCommentsComponent implements OnInit {
-  commentList$;
+export class AnimationCommentsComponent
+	extends UnsubscribeOnDestroyBaseComponent
+	implements OnInit {
+	commentList$;
+	postComment = new FormControl('', [Validators.required]);
+	constructor(
+		private store: Store,
+		@Inject(MAT_DIALOG_DATA) public animationId
+	) {
+		super();
+	}
 
-  constructor(
-    private store: Store,
-    @Inject(MAT_DIALOG_DATA) public animationId
-  ) {}
+	ngOnInit() {
+		this.store.dispatch(new AnimationGetCommentRequest(this.animationId));
+		this.commentList$ = this.store.pipe(
+			select(AnimationListQuery.getCommentList)
+		);
+		this.subscriptions.push(
+			this.postComment.valueChanges.subscribe((x) =>
+				this.store.dispatch(new AnimationPostCommentChange(x))
+			),
+			this.store
+				.pipe(select(AnimationListQuery.getPostCommentText))
+				.subscribe((s) => this.postComment.patchValue(s, { emitEvent: false }))
+		);
+	}
 
-  ngOnInit(): void {
-    this.store.dispatch(new AnimationGetCommentRequest(this.animationId));
-    this.commentList$ = this.store.pipe(
-      select(AnimationListQuery.getCommentList)
-    );
-  }
-
-  addNewComment(newComment: string) {
-    this.store.dispatch(
-      new AnimationPostCommentRequest({
-        animationId: this.animationId,
-        comment: newComment,
-      })
-    );
-  }
+	addNewComment() {
+		this.store.dispatch(
+			new AnimationPostCommentRequest({
+				animationId: this.animationId,
+				comment: this.postComment.value,
+			})
+		);
+	}
 }

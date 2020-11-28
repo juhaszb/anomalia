@@ -44,6 +44,8 @@ export function CoreReducer(
 			const decodedToken: DecodedToken = jwt_decode(
 				action.payload.access
 			) as DecodedToken;
+			localStorage.setItem('access', action.payload.access);
+			localStorage.setItem('refresh', action.payload.refresh);
 			state = {
 				...state,
 				credentials: {
@@ -53,12 +55,51 @@ export function CoreReducer(
 			};
 			break;
 		}
-		case CoreActionTypes.LogoutError:
 		case CoreActionTypes.LogoutResponse: {
 			state = CoreInitialState;
 
 			break;
 		}
+
+		case CoreActionTypes.SetToken: {
+			let decodedToken;
+			try {
+				decodedToken = jwt_decode(
+					localStorage.getItem('access') ?? ''
+				) as DecodedToken;
+			} catch {
+				console.error('Invalid token');
+			}
+
+			localStorage.getItem('refresh');
+			state = {
+				...state,
+				credentials: {
+					access: localStorage.getItem('access') ?? '',
+					refresh: localStorage.getItem('refresh') ?? '',
+					decodedToken: decodedToken ?? {},
+				},
+			};
+			break;
+		}
 	}
 	return state;
 }
+
+export const IsAuthenticated = () => {
+	try {
+		const access = localStorage.getItem('access');
+		const refresh = localStorage.getItem('refresh');
+		if (!access || !refresh) {
+			return false;
+		}
+		const decodedToken: DecodedToken = jwt_decode(access) as DecodedToken;
+		if (typeof decodedToken === 'object') {
+			return true;
+		} else {
+			return false;
+		}
+	} catch {
+		return false;
+	}
+};

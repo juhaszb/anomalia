@@ -6,25 +6,25 @@ import { AnimationUploadRequest } from '../+state/animation-list.actions';
 import { AnimationListState } from '../+state/animation-list.reducer';
 
 @Component({
-  templateUrl: './upload-animation.component.html',
-  styleUrls: ['./upload-animation.component.scss'],
+	templateUrl: './upload-animation.component.html',
+	styleUrls: ['./upload-animation.component.scss'],
 })
 export class UploadAnimationComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<UploadAnimationComponent>,
-    private store: Store<AnimationListState>
-  ) {}
-  file;
-  ngOnInit(): void {}
+	constructor(
+		public dialogRef: MatDialogRef<UploadAnimationComponent>,
+		private store: Store<AnimationListState>
+	) {}
+	file;
+	ngOnInit() {}
 
-  cancel() {
-    this.dialogRef.close();
-  }
-  onSave() {
-    this.store.dispatch(new AnimationUploadRequest(this.file));
-    this.dialogRef.close();
-  }
-  onChoose(file: File) {
-    this.file = file;
-  }
+	cancel() {
+		this.dialogRef.close();
+	}
+	onSave() {
+		this.store.dispatch(new AnimationUploadRequest(this.file));
+		this.dialogRef.close();
+	}
+	onChoose(file: File) {
+		this.file = file;
+	}
 }

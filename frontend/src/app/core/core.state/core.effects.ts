@@ -23,6 +23,10 @@ export class CoreEffects {
 		)
 	);
 
+	@Effect() clearStore$ = this.actions$.pipe(
+		ofType(CoreActionTypes.LogoutResponse),
+		map(() => this.store.dispatch({ type: 'SET_ROOT_STATE' }))
+	);
 	@Effect({ dispatch: false }) loggedout$ = this.actions$.pipe(
 		ofType(CoreActionTypes.LogoutResponse),
 		tap(() => this.router.navigateByUrl('/public/login'))

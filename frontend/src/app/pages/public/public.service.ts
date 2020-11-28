@@ -13,6 +13,9 @@ export class PublicServiceService {
 	}
 
 	login(form: LoginForm) {
-		return this.httpClient.post<LoginResponse>('user/login', form);
+		return this.httpClient.post<LoginResponse>(
+			'user/login?skipResponseSnackbar=true',
+			form
+		);
 	}
 }
