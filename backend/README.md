@@ -37,6 +37,8 @@ This folder contains the backend of the webshop. It is a Django project written 
 
     - `python manage.py runserver`
 
+You might need to create an admin user to be able to delete users and animations. This can be done with the `python manage.py createsuperuser` command, that will ask for a username, email address and password for the new admin user.
+
 ## (Optional) Setup VS Code for development
 
 1. Do the steps in the previous section
