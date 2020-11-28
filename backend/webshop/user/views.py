@@ -51,7 +51,7 @@ def user_register(request):
 
 
 @api_view(["POST"])
-@permission_classes(IsAuthenticated)
+@permission_classes([IsAuthenticated])
 def user_logout(request):
     if "refresh" not in request.data:
         return Response(status=HTTP_400_BAD_REQUEST)
