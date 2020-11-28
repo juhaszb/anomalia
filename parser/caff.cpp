@@ -1,6 +1,7 @@
 #include "caff.h"
 
 //#include <bits/stdint-uintn.h>
+#include <cstdint>
 #include <fstream>
 #include <iterator>
 #include <vector>
@@ -31,7 +32,11 @@ caff::caff(const std::string &filename)
 
 caff::caff(std::vector<uint8_t> &data)
 {
-	parse_data(data);
+	try {
+		parse_data(data);
+	} catch (...) {
+		throw;
+	}
 }
 
 const std::vector<uint64_t> &caff::get_durations() const
@@ -84,12 +89,35 @@ void caff::parse_data(std::vector<uint8_t> &data)
 			i++;
 
 			if (i == 8) {
-				if (block_id == HEADER)
-					parse_header(it + 1, it + leng + 1);
-				else if (block_id == CREDITS)
-					parse_credits(it + 1, it + leng + 1);
-				else {
-					parse_ciff(it + 1, it + leng + 1);
+				if (leng > INT32_MAX)
+					throw "TOO large length";
+				if (block_id == HEADER) {
+					if (data.end() < it + leng + 1)
+						throw "End outside boundaries";
+					try {
+						parse_header(it + 1,
+							     it + leng + 1);
+					} catch (...) {
+						throw;
+					}
+				} else if (block_id == CREDITS) {
+					if (data.end() < it + leng + 1)
+						throw "End outside boundaries";
+					try {
+						parse_credits(it + 1,
+							      it + leng + 1);
+					} catch (...) {
+						throw;
+					}
+				} else {
+					if (data.end() < it + leng + 1)
+						throw "End outside boundaries";
+					try {
+						parse_ciff(it + 1,
+							   it + leng + 1);
+					} catch (...) {
+						throw;
+					}
 				}
 
 				i = 0;
@@ -119,6 +147,9 @@ void caff::parse_header(std::vector<uint8_t>::iterator beg,
 	size_t i = 0;
 
 	parse_header_state ph = magic;
+
+	if (beg + 1 == end)
+		throw "mismtach";
 
 	for (std::vector<uint8_t>::iterator it = beg; it != end; it++) {
 		switch (ph) {
@@ -169,6 +200,9 @@ void caff::parse_credits(std::vector<uint8_t>::iterator beg,
 {
 	parse_credits_state pc = year;
 	size_t i = 0;
+
+	if (beg + 1 == end)
+		throw "mismatch";
 
 	for (std::vector<uint8_t>::iterator it = beg; it != end; it++) {
 		switch (pc) {
@@ -251,9 +285,15 @@ void caff::parse_ciff(std::vector<uint8_t>::iterator beg,
 			break;
 		}
 		case ciff_blocks: {
-			std::vector<uint8_t> ciff_data{ it, end };
-			ciff ciff{ ciff_data };
-			this->ciff_images.push_back(ciff);
+			try {
+				std::vector<uint8_t> ciff_data{ it, end };
+
+				ciff ciff{ ciff_data };
+
+				this->ciff_images.push_back(ciff);
+			} catch (...) {
+				throw;
+			}
 			c = done_ciff;
 			break;
 		}
