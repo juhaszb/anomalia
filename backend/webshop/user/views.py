@@ -44,7 +44,7 @@ def user_register(request):
 
     if User.objects.filter(username=username).exists():
         logger.error("Username already exists: %s", username)
-        return Response("Username already exists", HTTP_400_BAD_REQUEST)
+        return Response({"detail": "Username already exists"}, HTTP_400_BAD_REQUEST)
 
     User.objects.create_user(username=username, password=password)
     return Response(status=HTTP_204_NO_CONTENT)
