@@ -10,7 +10,7 @@
 		"e2e": "ng e2e",
 		"format": "./node_modules/.bin/prettier --write \"src/**/*.{js,ts,html,md,scss,css}\"",
 		"format:check": "./node_modules/.bin/prettier --check \"src/**/*.{js,ts,html,md,scss,css}\"",
-		"cypress:all": "cypress run --headed",
+		"cypress:all": "cypress run --headedless",
 		"cypress": "cypress open"
 	},
 	"private": true,
