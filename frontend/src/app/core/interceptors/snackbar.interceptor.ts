@@ -22,7 +22,9 @@ export class SnackbarInterceptor implements HttpInterceptor {
 				console.log(error);
 				if (error.status >= 400) {
 					this.snackbar.open(
-						error?.error ? JSON.stringify(error.error) : 'Hiba történt',
+						error?.error
+							? error?.error?.details ?? JSON.stringify(error.error)
+							: 'Hiba történt',
 						'',
 						{
 							duration: 2000,
