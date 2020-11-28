@@ -2,7 +2,7 @@
 
 This folder contains the frontend of the webshop. It is a Angular project written with Typescript.
 
-## Running the backend
+## Running the frontend
 
 1. Install NodeJs for your operating system
 2. Clone the project
