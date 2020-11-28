@@ -9,6 +9,9 @@ export class CoreService {
 
 	logout(token: Logout) {
 		// tslint:disable-next-line: no-any
-		return this.httpClient.post<any>('user/logout', token);
+		return this.httpClient.post<any>(
+			'user/logout?skipResponseSnackbar=true',
+			token
+		);
 	}
 }

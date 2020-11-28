@@ -23,13 +23,13 @@ export class CoreEffects {
 		)
 	);
 
-	@Effect() clearStore$ = this.actions$.pipe(
+	@Effect({ dispatch: false }) clearStore$ = this.actions$.pipe(
 		ofType(CoreActionTypes.LogoutResponse),
-		map(() => this.store.dispatch({ type: 'SET_ROOT_STATE' }))
+		tap(() => this.store.dispatch({ type: 'SET_ROOT_STATE' }))
 	);
 	@Effect({ dispatch: false }) loggedout$ = this.actions$.pipe(
 		ofType(CoreActionTypes.LogoutResponse),
-		tap(() => this.router.navigateByUrl('/public/login'))
+		tap(() => this.router.navigateByUrl(''))
 	);
 	constructor(
 		private coreService: CoreService,

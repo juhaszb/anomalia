@@ -19,7 +19,11 @@ export class RefreshInterceptor implements HttpInterceptor {
 	intercept(req: HttpRequest<any>, next: HttpHandler) {
 		return next.handle(req).pipe(
 			catchError((err) => {
-				if (err.status === 401 && !!localStorage.getItem('refresh')) {
+				if (
+					err.status === 401 &&
+					!!localStorage.getItem('refresh') &&
+					!req.url.includes('login')
+				) {
 					return this.http
 						.post('user/refresh?skipResponseSnackbar=true', {
 							refresh: localStorage.getItem('refresh'),
