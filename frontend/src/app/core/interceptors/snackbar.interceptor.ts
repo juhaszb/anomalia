@@ -1,13 +1,11 @@
 import {
-	HttpErrorResponse,
-	HttpEvent,
 	HttpHandler,
 	HttpInterceptor,
 	HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
@@ -18,15 +16,19 @@ export class SnackbarInterceptor implements HttpInterceptor {
 		// tslint:disable-next-line: no-any
 		req: HttpRequest<any>,
 		next: HttpHandler
-		// tslint:disable-next-line: no-any
-	): Observable<HttpEvent<any>> {
+	) {
 		return next.handle(req).pipe(
-			catchError((error: HttpErrorResponse) => {
+			catchError((error) => {
+				console.log(error);
 				if (error.status >= 400) {
-					this.snackbar.open('Hiba történt', '', {
-						duration: 2000,
-						panelClass: 'error-snackbar',
-					});
+					this.snackbar.open(
+						error?.error ? JSON.stringify(error.error) : 'Hiba történt',
+						'',
+						{
+							duration: 2000,
+							panelClass: 'error-snackbar',
+						}
+					);
 				}
 				return throwError(error);
 			})

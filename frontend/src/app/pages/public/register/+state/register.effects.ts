@@ -20,10 +20,7 @@ export class RegisterFormEffects {
 		mergeMap(([action, storeState]) =>
 			this.service.register(registerFormQuery.getRegisterForm(storeState)).pipe(
 				map(() => new RegisterFormResponse()),
-				catchError(async (e) => {
-					console.error(e);
-					return new RegisterFormError();
-				})
+				catchError(async () => new RegisterFormError())
 			)
 		)
 	);

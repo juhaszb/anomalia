@@ -25,7 +25,11 @@ export class TokenInterceptor implements HttpInterceptor {
 	private setToken(request: HttpRequest<any>): HttpRequest<any> {
 		const token = localStorage.getItem('access');
 
-		if (token) {
+		if (
+			token &&
+			!request.url.includes('login') &&
+			!request.url.includes('register')
+		) {
 			return request.clone({
 				setHeaders: {
 					Authorization: `Bearer ${token}`,
