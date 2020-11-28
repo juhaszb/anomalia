@@ -4,7 +4,7 @@ import {
 	getMatFormFieldByPlaceholder,
 } from 'cypress/support/app.po';
 
-const ValidUsername = 'Username10';
+const ValidUsername = 'Username11123';
 const ValidPassword = 'Pasd234dsf.';
 describe('Register & Login', () => {
 	it('Register with wrong credentials', () => {
@@ -75,7 +75,7 @@ describe('Register & Login', () => {
 		});
 		cy.contains('Bejelentkezés');
 	});
-	it.only('Login with good credentials', () => {
+	it('Login with good credentials', () => {
 		cy.visit('localhost:4200/public/login');
 		const userName = getMatFormFieldByPlaceholder('Felhasználónév');
 		userName.clear().type(ValidUsername);
