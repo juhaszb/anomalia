@@ -1,0 +1,45 @@
+<div class="register">
+	<div><img src="../../../../assets/logo.png" /></div>
+	<div>
+		<form [formGroup]="form" (submit)="onSave()">
+			<mat-card>
+				<mat-card-header>
+					<mat-card-title>Bejelentkezés</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+					<mat-form-field appearance="outline">
+						<mat-label>Felhasználónév</mat-label>
+						<input [formControl]="formControls.username" matInput />
+						<mat-error *ngIf="formControls.username.invalid"
+							>Kötelező mező</mat-error
+						>
+					</mat-form-field>
+					<mat-form-field appearance="outline">
+						<mat-label>Jelszó</mat-label>
+						<input
+							type="password"
+							[formControl]="formControls.password"
+							matInput
+						/>
+						<mat-error *ngIf="formControls.password.invalid"
+							>Kötelező mező</mat-error
+						>
+					</mat-form-field>
+				</mat-card-content>
+				<mat-card-actions>
+					<button
+						class="italic"
+						type="button"
+						[routerLink]="'/public/register'"
+						mat-button
+					>
+						Tovább a regisztrációhoz
+					</button>
+					<button type="submit" mat-raised-button color="primary">
+						Bejelentkezés
+					</button>
+				</mat-card-actions>
+			</mat-card>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,72 @@
+{
+	"name": "frontend",
+	"version": "0.0.0",
+	"scripts": {
+		"ng": "ng",
+		"start": "ng serve",
+		"build": "ng build",
+		"test": "ng test",
+		"lint": "ng lint frontend",
+		"e2e": "ng e2e",
+		"format": "./node_modules/.bin/prettier --write \"src/**/*.{js,ts,html,md,scss,css}\"",
+		"format:check": "./node_modules/.bin/prettier --check \"src/**/*.{js,ts,html,md,scss,css}\"",
+		"cypress:all": "cypress run --browser chrome",
+		"cypress": "cypress open"
+	},
+	"private": true,
+	"dependencies": {
+		"@angular/animations": "~10.1.2",
+		"@angular/cdk": "^10.2.5",
+		"@angular/common": "~10.1.2",
+		"@angular/compiler": "~10.1.2",
+		"@angular/core": "~10.1.2",
+		"@angular/forms": "~10.1.2",
+		"@angular/material": "^10.2.5",
+		"@angular/platform-browser": "~10.1.2",
+		"@angular/platform-browser-dynamic": "~10.1.2",
+		"@angular/router": "~10.1.2",
+		"@ngrx/effects": "^10.0.1",
+		"@ngrx/router-store": "^10.0.1",
+		"@ngrx/store": "^10.0.1",
+		"file-saver": "^2.0.5",
+		"jwt-decode": "^3.0.0",
+		"rxjs": "~6.6.0",
+		"tslib": "^2.0.0",
+		"zone.js": "~0.10.2"
+	},
+	"devDependencies": {
+		"@angular-devkit/build-angular": "^0.1002.0",
+		"@angular/cli": "~10.1.2",
+		"@angular/compiler-cli": "~10.1.2",
+		"@ngrx/store-devtools": "^10.0.1",
+		"@types/file-saver": "^2.0.1",
+		"@types/jwt-decode": "^2.2.1",
+		"@types/node": "^12.11.1",
+		"codelyzer": "^6.0.0",
+		"cypress": "^5.2.0",
+		"husky": "^4.3.0",
+		"lint-staged": "^10.4.0",
+		"prettier": "^2.1.2",
+		"ts-node": "~8.3.0",
+		"tslint": "~6.1.0",
+		"typescript": "~4.0.2"
+	},
+	"importSort": {
+		".ts": {
+			"parser": "typescript",
+			"style": "module",
+			"options": {}
+		}
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.{js,ts,json,scss,css,html}": [
+			"./node_modules/.bin/prettier --write",
+			"git add"
+		]
+	}
+}

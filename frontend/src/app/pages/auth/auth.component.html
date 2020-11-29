@@ -1,0 +1,22 @@
+<div class="auth-container">
+	<div>
+		<button type="button" (click)="logout()" mat-raised-button color="primary">
+			Kijelentkezés
+		</button>
+		<ng-container *ngIf="(userType$ | async) === 'admin'">
+			<div>
+				<button type="button" [routerLink]="'/auth/user'" mat-raised-button>
+					Felhasználó
+				</button>
+				<button
+					type="button"
+					[routerLink]="'/auth/animation'"
+					mat-raised-button
+				>
+					Animáció
+				</button>
+			</div>
+		</ng-container>
+	</div>
+	<router-outlet></router-outlet>
+</div>

@@ -1,0 +1,53 @@
+<div class="add">
+	<button (click)="createNew()" mat-fab color="primary">
+		<mat-icon>add</mat-icon>
+	</button>
+</div>
+<mat-list>
+	<div *ngFor="let animation of animationList$ | async">
+		<img [src]="animation.url" [alt]="animation.id" />
+		<div>
+			<ng-container *ngIf="(deleteOrBuyId$ | async) !== animation.id">
+				<button
+					[disabled]="isDeletePostBuyRequesting$ | async"
+					*ngIf="!animation.bought"
+					mat-raised-button
+					color="primary"
+					(click)="buy(animation.id)"
+				>
+					Megvásárlás
+				</button>
+				<button
+					[disabled]="isDeletePostBuyRequesting$ | async"
+					(click)="download(animation.id)"
+					*ngIf="animation.bought"
+					mat-raised-button
+					color="primary"
+				>
+					Letöltés
+				</button>
+
+				<button
+					[disabled]="isDeletePostBuyRequesting$ | async"
+					(click)="delete(animation.id)"
+					*ngIf="(currentUserType$ | async) === 'admin'"
+					mat-raised-button
+					color="primary"
+				>
+					Törlés
+				</button>
+				<button
+					mat-raised-button
+					color="primary"
+					(click)="comments(animation.id)"
+				>
+					Kommentek
+				</button>
+			</ng-container>
+			<mat-spinner
+				*ngIf="(deleteOrBuyId$ | async) === animation.id"
+			></mat-spinner>
+		</div>
+	</div>
+</mat-list>
+<mat-spinner *ngIf="isRequesting$ | async"></mat-spinner>

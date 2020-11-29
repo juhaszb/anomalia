@@ -1,0 +1,13 @@
+.actions {
+  > * {
+    margin: 10px;
+    cursor: pointer;
+  }
+}
+mat-icon {
+  cursor: pointer;
+}
+div {
+  display: flex;
+  justify-content: space-between;
+}
