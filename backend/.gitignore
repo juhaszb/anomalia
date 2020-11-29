@@ -1,0 +1,7 @@
+.env
+.env_vars
+__pycache__
+db.sqlite3
+media
+static
+*cpython*
